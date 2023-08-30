@@ -16,10 +16,6 @@ public class Control {
     public int getTotalEnfermeros() {
         return totalEnfermeros;
     }
-
-    public String buscarEnfermero(String rut){
-        return mapaEnfermeros.get(rut);
-    }
     
     public void agregarEnfermero(String nombre, String rut){
         Enfermero auxEnfermero = new Enfermero(nombre, rut);
@@ -29,16 +25,24 @@ public class Control {
     }
 
     public void eliminarEnfermero(String rut){
-        for (int i = 0; i < listaEnfermeros.size(); i++) {
-            if(listaEnfermeros.get(i).getRut().equals(rut)){
-                listaEnfermeros.remove(i);
-                totalEnfermeros--;
-                mapaEnfermeros.remove(rut);
-                break;
-            }
-        }
-    }
 
+        if(mapaEnfermeros.containsKey(rut)){
+
+            for (int i = 0; i < listaEnfermeros.size(); i++) {
+
+                if(listaEnfermeros.get(i).getRut().equals(rut)){
+
+                    listaEnfermeros.remove(i);
+                    totalEnfermeros--;
+                    mapaEnfermeros.remove(rut);
+                    break;
+                }
+            }
+        }else{
+            System.out.println("El enfermero no se encuentra en el sistema");
+        }
+      
+    }
     public void mostrarEnfermeros(){
         for (int i = 0; i < listaEnfermeros.size(); i++) {
             System.out.println("Enfermero " + (i + 1) + ": Nombre: " + listaEnfermeros.get(i).getNombre() + ", Rut: " + listaEnfermeros.get(i).getRut());
@@ -46,7 +50,24 @@ public class Control {
         }
     }
 
-    // PRUEBA 
+     public void buscarEnfermero(String auxString){
+
+        if(mapaEnfermeros.containsKey(auxString)){
+
+            for (int i = 0; i < listaEnfermeros.size(); i++) {
+
+                if(listaEnfermeros.get(i).getRut().equals(auxString)){
+
+                    System.out.println("Enfermero: Nombre: " + listaEnfermeros.get(i).getNombre() + ", Rut: " + listaEnfermeros.get(i).getRut());
+                    System.out.println("Turnos: ");
+                    break;
+                }
+            }
+        }else{
+            System.out.println("El enfermero no se encuentra en el sistema");
+        }
+
+    }
 
     
 }

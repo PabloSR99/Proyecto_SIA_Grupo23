@@ -38,44 +38,22 @@ public class proyecto {
                     break;
                 case 2:
 
-                    System.out.println("Ingrese el rut del enfermero: ");
+                    System.out.println("Ingrese el rut del enfermero a eliminar ");
                     String rutEnfermero = lector.readLine();
 
-                    if(rutEnfermero.equals(control.buscarEnfermero(rutEnfermero))){
-
-                        System.out.println("Ingrese el dia del turno: ");
-                        String dia = lector.readLine();
-
-                        System.out.println("Ingrese la hora de entrada del turno: ");
-                        String entrada = lector.readLine();
-
-                        System.out.println("Ingrese la hora de salida del turno: ");
-                        String salida = lector.readLine();
-
-                        Horario auxHorario = new Horario(entrada, salida, dia);
-                        //mapaEnfermeros.get(rutEnfermero).agregarTurno(auxHorario);
-                    }else{
-                        System.out.println("El rut ingresado no existe");
-                    }
+                    control.eliminarEnfermero(rutEnfermero);
                     
                     break;
 
                 case 3:
 
-                    System.out.println("Ingrese el rut del enfermero: ");
-                    String auxRut = lector.readLine();
-
-                    /*if(mapaEnfermeros.containsKey(auxRut)){
-                        mapaEnfermeros.get(auxRut).mostrarTurnos(mapaEnfermeros.get(auxRut));
-                        
-                       
-
-                    }else{
-                        System.out.println("El rut ingresado no existe");
-                    }*/
+                    control.mostrarEnfermeros();
                 
                     break;
                 case 4:
+                    System.out.println("Ingrese el rut del enfermero a eliminar ");
+                    String auxString = lector.readLine();
+                    control.buscarEnfermero(auxString);
                         
                     break;  
                 case 5:
