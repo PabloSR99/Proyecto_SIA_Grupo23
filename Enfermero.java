@@ -14,7 +14,22 @@ public class Enfermero{
         
     }
 
+    public String getNombre() {
+        return nombre;
+    }
     
+    public String getRut() {
+        return rut;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setRut(String rut) {
+        this.rut = rut;
+    }
+
     public void agregarTurno(Horario turno) {
 
         turnos.add(turno);

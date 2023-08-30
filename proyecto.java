@@ -7,10 +7,9 @@ public class proyecto {
         
         int opcion=-1;
         String ingresado;
-
+        
+        Control control = new Control();
         BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
-
-        Map<String, Enfermero> mapaEnfermeros  = new HashMap<>();
 
         while (opcion != 0){
 
@@ -34,8 +33,7 @@ public class proyecto {
                     System.out.println("Ingrese el rut del enfermero: ");
                     String rut = lector.readLine();
 
-                    Enfermero auxEnfermero = new Enfermero(nombre, rut);
-                    mapaEnfermeros.put(rut, auxEnfermero);
+                    control.agregarEnfermero(nombre, rut);
                 
                     break;
                 case 2:
@@ -43,7 +41,7 @@ public class proyecto {
                     System.out.println("Ingrese el rut del enfermero: ");
                     String rutEnfermero = lector.readLine();
 
-                    if(mapaEnfermeros.containsKey(rutEnfermero)){
+                    if(rutEnfermero.equals(control.buscarEnfermero(rutEnfermero))){
 
                         System.out.println("Ingrese el dia del turno: ");
                         String dia = lector.readLine();
@@ -55,7 +53,7 @@ public class proyecto {
                         String salida = lector.readLine();
 
                         Horario auxHorario = new Horario(entrada, salida, dia);
-                        mapaEnfermeros.get(rutEnfermero).agregarTurno(auxHorario);
+                        //mapaEnfermeros.get(rutEnfermero).agregarTurno(auxHorario);
                     }else{
                         System.out.println("El rut ingresado no existe");
                     }
@@ -67,14 +65,14 @@ public class proyecto {
                     System.out.println("Ingrese el rut del enfermero: ");
                     String auxRut = lector.readLine();
 
-                    if(mapaEnfermeros.containsKey(auxRut)){
+                    /*if(mapaEnfermeros.containsKey(auxRut)){
                         mapaEnfermeros.get(auxRut).mostrarTurnos(mapaEnfermeros.get(auxRut));
                         
                        
 
                     }else{
                         System.out.println("El rut ingresado no existe");
-                    }
+                    }*/
                 
                     break;
                 case 4:
