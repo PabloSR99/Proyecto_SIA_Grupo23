@@ -123,7 +123,22 @@ public class Control {
             System.out.println("El enfermero no se encuentra en el sistema");
         }
     }
+    public void agregarTurno(String rut, String dia, String entrada, String salida){
 
+        if(mapaEnfermeros.containsKey(rut)){
+
+            for (int i = 0; i < listaEnfermeros.size(); i++) {
+
+                if(listaEnfermeros.get(i).getRut().equals(rut)) {
+
+                    Horario auxHorario = new Horario(entrada, salida, dia);
+                    listaEnfermeros.get(i).setTurno(auxHorario);
+                }
+            }
+        }else {
+            System.out.println("El enfermero no se encuentra en el sistema");
+        }
+    }
 
     public void eliminarTurno()throws IOException{
 
