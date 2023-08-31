@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.*;
+
 public class proyecto {
 
     public static void main(String arg[])throws IOException {
@@ -15,10 +16,11 @@ public class proyecto {
 
             System.out.println("Ingrese la opcion del menu: ");
             System.out.println("1 -> Agregar enfermero");
-            System.out.println("2 -> Agregar turno");
-            System.out.println("3 -> Mostrar turnos de un enfermero");
-            System.out.println("4 -> Eliminar turno" );
-            System.out.println("5 -> Mostrar turnos");
+            System.out.println("2 -> Eliminar enfermero");
+            System.out.println("3 -> Mostrar enfermeros");
+            System.out.println("4 -> Buscar enfermero" );
+            System.out.println("5 -> Mostrar turno de enfermero");
+            System.out.println("6 -> Eliminar turno de enfermero");
             System.out.println("0 -> Salir");
 
             ingresado=lector.readLine();
@@ -27,21 +29,13 @@ public class proyecto {
             switch (opcion) {
                 case 1:
 
-                    System.out.println("Ingrese el nombre del enfermero: ");
-                    String nombre = lector.readLine();
 
-                    System.out.println("Ingrese el rut del enfermero: ");
-                    String rut = lector.readLine();
-
-                    control.agregarEnfermero(nombre, rut);
+                    control.agregarEnfermero();
                 
                     break;
                 case 2:
 
-                    System.out.println("Ingrese el rut del enfermero a eliminar ");
-                    String rutEnfermero = lector.readLine();
-
-                    control.eliminarEnfermero(rutEnfermero);
+                    control.eliminarEnfermero();
                     
                     break;
 
@@ -51,14 +45,18 @@ public class proyecto {
                 
                     break;
                 case 4:
-                    System.out.println("Ingrese el rut del enfermero a eliminar ");
-                    String auxString = lector.readLine();
-                    control.buscarEnfermero(auxString);
+
+                    control.buscarEnfermero();
                         
                     break;  
                 case 5:
-                        
-                    break; 
+                    control.agregarTurno();
+                    break;
+
+                case 6:
+                    control.eliminarTurno();
+
+                    break;
                 default:
                     break;
             }

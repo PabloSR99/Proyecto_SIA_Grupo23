@@ -30,15 +30,27 @@ public class Enfermero{
         this.rut = rut;
     }
 
-    public void agregarTurno(Horario turno) {
+    public void setTurno(Horario turno) {
 
         turnos.add(turno);
 
     }
 
+    public void removeTurno(Horario turno) {
 
+        for (int i = 0; i < turnos.size(); i++) {
 
-    public void mostrarTurnos(Enfermero enfermeros){
+            if(turnos.get(i).getDia().equals(turno.getDia()) && turnos.get(i).getEntrada().equals(turno.getEntrada()) && turnos.get(i).getSalida().equals(turno.getSalida())){
+
+                turnos.remove(i);
+                break;
+            }
+            System.out.println("Turno " + (i + 1) + ": Día: " + turno.getDia() + ", Entrada: " + turno.getEntrada() + ", Salida: " + turno.getSalida());
+        }
+
+    }
+
+    public void mostrarTurnos(){
 
         System.out.println("Turnos para " + nombre);
         System.out.println("Rut " + rut);
