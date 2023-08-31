@@ -123,6 +123,8 @@ public class Control {
             System.out.println("El enfermero no se encuentra en el sistema");
         }
     }
+
+
     public void eliminarTurno()throws IOException{
 
         BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));

@@ -60,6 +60,7 @@ public class Enfermero{
             Horario turno = turnos.get(i);
             System.out.println("Turno " + (i + 1) + ": Día: " + turno.getDia() + ", Entrada: " + turno.getEntrada() + ", Salida: " + turno.getSalida());
         }
+        System.out.println();
  
     }
 
