@@ -40,7 +40,10 @@ public class Enfermero{
     public void setTurno(Horario turno) {
 
         turnos.add(turno);
+    }
 
+    public ArrayList<Horario> getTurnos() {
+        return turnos;
     }
 
     public void removeTurno(Horario turno) {

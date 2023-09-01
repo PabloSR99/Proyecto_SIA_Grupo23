@@ -20,10 +20,11 @@ public class proyecto {
                     Ingrese la opcion del menu:
                     1 -> Agregar enfermero
                     2 -> Eliminar enfermero
-                    3 -> Mostrar enfermeros
+                    3 -> Mostrar enfermeros y sus turnos
                     4 -> Buscar enfermero
-                    5 -> Mostrar turno de enfermero
-                    6 -> Eliminar turno de enfermero
+                    5 -> Agregar turno de enfermero
+                    6 -> Modificar turno de enfermero
+                    7 -> Eliminar turno de enfermero
                     0 -> Salir""");
 
             ingresado=lector.readLine();
@@ -32,33 +33,31 @@ public class proyecto {
             switch (opcion) {
                 case 1:
 
-
                     control.agregarEnfermero();
-                
                     break;
                 case 2:
 
                     control.eliminarEnfermero();
-                    
                     break;
-
                 case 3:
 
                     control.mostrarEnfermeros();
-                
                     break;
                 case 4:
 
                     control.buscarEnfermero();
-                        
                     break;  
                 case 5:
+
                     control.agregarTurno();
                     break;
-
                 case 6:
-                    control.eliminarTurno();
 
+                    control.modificarTurno();
+                    break;
+                case 7:
+
+                    control.eliminarTurno();
                     break;
                 default:
                     break;

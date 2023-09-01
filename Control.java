@@ -173,6 +173,52 @@ public class Control {
         }
     }
 
+    public void modificarTurno()throws IOException {
+        BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Ingrese el rut del enfermero para modificar: ");
+        String rut = lector.readLine();
+        int aux = 0, pos = 0;
+
+        if (mapaEnfermeros.containsKey(rut)) {
+            for (int i = 0; i < listaEnfermeros.size(); i++) {
+                if (listaEnfermeros.get(i).getRut().equals(rut)) {
+                    System.out.println("Ingrese el dia del turno a modificar: ");
+                    String dia = lector.readLine();
+                    for (int j = 0; j < listaEnfermeros.get(i).getTurnos().size(); j++) {
+                        if (listaEnfermeros.get(i).getTurnos().get(j).getDia().equals(dia)) {
+                            if (aux >= 1) {
+                                System.out.println("Hay mas de un turno con ese dia, ingrese la hora de entrada del turno a modificar: ");
+                                String entrada = lector.readLine();
+                                if (listaEnfermeros.get(i).getTurnos().get(i).getEntrada().equals(entrada)) {
+                                    pos = j;
+                                }
+
+                                aux++;
+
+                            } else {
+                                pos = j;
+                                aux++;
+                            }
+
+                        }
+                        System.out.println("Ingrese el nuevo dia del turno: ");
+                        dia = lector.readLine();
+                        listaEnfermeros.get(i).getTurnos().get(pos).setDia(dia);
+                        System.out.println("Ingrese la nueva hora de entrada del turno: ");
+                        String entradaNueva = lector.readLine();
+                        listaEnfermeros.get(i).getTurnos().get(pos).setEntrada(entradaNueva);
+                        System.out.println("Ingrese la nueva hora de salida del turno: ");
+                        String salidaNueva = lector.readLine();
+                        listaEnfermeros.get(i).getTurnos().get(pos).setSalida(salidaNueva);
+                        System.out.println("Turno modificado");
+                        break;
+                    }
+                    break;
+                }
+            }
+        }
+    }
+
     public void eliminarTurno()throws IOException{
 
         BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
