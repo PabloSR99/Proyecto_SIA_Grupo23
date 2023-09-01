@@ -5,23 +5,58 @@ public class Control {
 
     private Map<String, String> mapaEnfermeros;
     private ArrayList <Enfermero> listaEnfermeros;
-    private int totalEnfermeros;
 
     public Control() {
         this.mapaEnfermeros = new HashMap<>();
         this.listaEnfermeros = new ArrayList<>();
-        this.totalEnfermeros = 0;
     }
 
-    public int getTotalEnfermeros() {
-        return totalEnfermeros;
+    public void datosIni(Control control){
+        //1° enfermero
+        String nombre = "Juan", rut = "12345678-9", dia = "1/09/2023", entrada = "8:00", salida = "16:00";
+
+        control.agregarEnfermero(nombre, rut);
+        control.agregarTurno(rut, dia, entrada, salida);
+        dia = "2/09/2023";
+        control.agregarTurno(rut, dia, entrada, salida);
+
+        //2° enfermero
+        nombre = "Pedro"; rut = "23456789-0"; dia = "3/09/2023"; entrada = "7:45"; salida = "15:45";
+        control.agregarEnfermero(nombre, rut);
+        control.agregarTurno(rut, dia, entrada, salida);
+        entrada = "7:30"; salida = "15:30"; dia = "4/09/2023";
+        control.agregarTurno(rut, dia, entrada, salida);
+        entrada = "6:00"; salida = "9:00"; dia = "5/09/2023";
+        control.agregarTurno(rut, dia, entrada, salida);
+
+        //3° enfermero
+        nombre = "Ana"; rut = "34567890-1"; dia = "4/09/2023";entrada = "8:15";salida = "16:15";
+        control.agregarEnfermero(nombre, rut);
+        control.agregarTurno(rut, dia, entrada, salida);
+        entrada = "2:30"; salida = "15:30"; dia = "6/09/2023";
+        control.agregarTurno(rut, dia, entrada, salida);
+        entrada = "9:00"; salida = "9:30"; dia = "7/09/2023";
+        control.agregarTurno(rut, dia, entrada, salida);
+
+        //4° enfermero
+        nombre = "María";rut = "98765432-1";dia = "1/09/2023";entrada = "9:30";salida = "17:30";
+        control.agregarEnfermero(nombre, rut);
+        control.agregarTurno(rut, dia, entrada, salida);
+        entrada = "2:30"; salida = "15:30"; dia = "2/09/2023";
+        control.agregarTurno(rut, dia, entrada, salida);
+        entrada = "9:00"; salida = "9:30"; dia = "3/09/2023";
+        control.agregarTurno(rut, dia, entrada, salida);
+        entrada = "19:00"; salida = "23:30"; dia = "4/09/2023";
+        control.agregarTurno(rut, dia, entrada, salida);
+        entrada = "9:00"; salida = "9:30"; dia = "5/09/2023";
+        control.agregarTurno(rut, dia, entrada, salida);
+        entrada = "1:00"; salida = "20:30"; dia = "6/09/2023";
+        control.agregarTurno(rut, dia, entrada, salida);
     }
-    
     public void agregarEnfermero(String nombre, String rut){
         Enfermero auxEnfermero = new Enfermero(nombre, rut);
         mapaEnfermeros.put(rut, rut);
         listaEnfermeros.add(auxEnfermero);
-        totalEnfermeros++;
     }
     public void agregarEnfermero()throws IOException{
 
@@ -36,7 +71,6 @@ public class Control {
         Enfermero auxEnfermero = new Enfermero(nombre, rut);
         mapaEnfermeros.put(rut, rut);
         listaEnfermeros.add(auxEnfermero);
-        totalEnfermeros++;
     }
 
 
@@ -53,7 +87,6 @@ public class Control {
                 if(listaEnfermeros.get(i).getRut().equals(rut)){
 
                     listaEnfermeros.remove(i);
-                    totalEnfermeros--;
                     mapaEnfermeros.remove(rut);
                     break;
                 }

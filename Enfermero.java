@@ -1,18 +1,25 @@
 import java.util.*;
+import java.io.*;
 
 public class Enfermero{
-
     private String nombre;
     private String rut;
     private ArrayList <Horario> turnos;
 
     public Enfermero(String nombre, String rut){
 
-        this.nombre = nombre;
-        this.rut = rut;
+        setNombre(nombre);
+        setRut(rut);
         this.turnos = new ArrayList<>();
         
     }
+    /*public Enfermero(String rut) throws IOException {
+        BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Ingrese el nombre del enfermero: ");
+        setNombre(lector.readLine());
+        setRut(rut);
+        this.turnos = new ArrayList<>();
+    }*/
 
     public String getNombre() {
         return nombre;
@@ -40,14 +47,13 @@ public class Enfermero{
 
         for (int i = 0; i < turnos.size(); i++) {
 
-            if(turnos.get(i).getDia().equals(turno.getDia()) && turnos.get(i).getEntrada().equals(turno.getEntrada()) && turnos.get(i).getSalida().equals(turno.getSalida())){
+            if(turnos.get(i).getDia().equals(turno.getDia()) && turnos.get(i).getEntrada().equals(turno.getEntrada()) && turnos.get(i).getSalida().equals(turno.getSalida())) {
 
+                System.out.println("Turno " + (i + 1) + ": Día: " + turno.getDia() + ", Entrada: " + turno.getEntrada() + ", Salida: " + turno.getSalida() + " eliminado");
                 turnos.remove(i);
                 break;
             }
-            System.out.println("Turno " + (i + 1) + ": Día: " + turno.getDia() + ", Entrada: " + turno.getEntrada() + ", Salida: " + turno.getSalida());
         }
-
     }
 
     public void mostrarTurnos(){
