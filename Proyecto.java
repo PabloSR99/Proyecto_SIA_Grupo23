@@ -1,7 +1,6 @@
 import java.io.*;
-import java.util.*;
 
-public class proyecto {
+public class Proyecto {
 
 
     public static void main(String arg[])throws IOException {
@@ -16,6 +15,7 @@ public class proyecto {
 
         while (opcion != 0){
 
+            System.out.println("======================================================");
             System.out.println("""
                     Ingrese la opcion del menu:
                     1 -> Agregar enfermero
@@ -26,7 +26,7 @@ public class proyecto {
                     6 -> Modificar turno de enfermero
                     7 -> Eliminar turno de enfermero
                     0 -> Salir""");
-
+            System.out.println("======================================================");
             ingresado=lector.readLine();
             opcion=Integer.parseInt( ingresado );
 
@@ -62,6 +62,7 @@ public class proyecto {
                 default:
                     break;
             }
+
         }
     }
 }
