@@ -12,6 +12,38 @@ public class Control {
     }
 
     public void datosIni(Control control){
+        String path = "enfermeros.csv"; //
+        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+
+            String linea;
+            while ((linea = br.readLine()) != null) {
+
+                String[] datos = linea.split(",");
+
+                String nombre = datos[0].trim();
+                String rut = datos[1].trim();
+                control.agregarEnfermero(nombre, rut);
+
+
+
+                for (int i = 2; i < datos.length; i += 3) {
+                    String dia = datos[i].trim();
+                    String entrada = datos[i + 1].trim();
+                    String salida = datos[i + 2].trim();
+                    control.agregarTurno(rut, dia, entrada, salida);
+
+                }
+
+
+
+                System.out.println("-----");
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        /*
         //1° enfermero
         String nombre = "Juan", rut = "12345678-9", dia = "Lunes", entrada = "8:00", salida = "16:00";
 
@@ -52,6 +84,26 @@ public class Control {
         control.agregarTurno(rut, dia, entrada, salida);
         entrada = "1:00"; salida = "20:30"; dia = "Sabado";
         control.agregarTurno(rut, dia, entrada, salida);
+
+         */
+    }
+    public void guardarDatos(Control control)throws IOException{
+
+        String path = "enfermeros.csv";
+        FileWriter fichero = new FileWriter(path);
+        PrintWriter pw = new PrintWriter(fichero);
+
+        for (int i = 0; i < listaEnfermeros.size(); i++) {
+
+            pw.print(listaEnfermeros.get(i).getNombre() + "," + listaEnfermeros.get(i).getRut());
+
+            for (int j = 0; j < listaEnfermeros.get(i).getTurnos().size(); j++) {
+
+                pw.print("," + listaEnfermeros.get(i).getTurnos().get(j).getDia() + "," + listaEnfermeros.get(i).getTurnos().get(j).getEntrada() + "," + listaEnfermeros.get(i).getTurnos().get(j).getSalida());
+            }
+            pw.println();
+        }
+        fichero.close();
     }
     public void agregarEnfermero(String nombre, String rut){
         Enfermero auxEnfermero = new Enfermero(nombre, rut);

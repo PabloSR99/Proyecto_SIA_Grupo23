@@ -4,7 +4,7 @@ public class Proyecto {
 
 
     public static void main(String arg[])throws IOException {
-        
+
         
         int opcion=-1;
         String ingresado;
@@ -59,6 +59,14 @@ public class Proyecto {
 
                     control.eliminarTurno();
                     break;
+
+                case 0:
+                    control.guardarDatos(control);
+                    System.out.println("======================================================");
+                    System.out.println("Saliendo del programa...");
+                    System.out.println("======================================================");
+
+
                 default:
                     break;
             }
