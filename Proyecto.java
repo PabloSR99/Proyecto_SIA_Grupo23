@@ -8,10 +8,13 @@ public class Proyecto {
         
         int opcion=-1;
         String ingresado;
-        
+
+        Ventanas v;
         Control control = new Control();
         BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
         control.datosIni(control);
+        v = new Ventanas(control);
+        v.setVisible(true);
 
         while (opcion != 0){
 
