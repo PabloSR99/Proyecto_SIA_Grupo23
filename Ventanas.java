@@ -20,9 +20,9 @@ public class Ventanas extends JFrame{
     private JButton bImportarDatos;
     private JButton bGuardarDatos;
 
-    public Ventanas(Control control){
+    public Ventanas(Hospital control){
 
-        this.control = control;
+        this.hospital = hospital;
         setTitle("Menú de Enfermeros");
         setSize(500, 400);
         setLocationRelativeTo(null);

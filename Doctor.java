@@ -3,9 +3,9 @@ import java.util.ArrayList;
 public class Doctor extends Personal{
 
     private ArrayList<Enfermero> enfermerosAsignados;
-    public Doctor(String nombre, String rut, Horario horario){
+    public Doctor(String nombre, String rut){
 
-        super(nombre, rut, horario);
+        super(nombre, rut);
         enfermerosAsignados = new ArrayList<>();
 
     }

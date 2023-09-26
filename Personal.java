@@ -5,7 +5,7 @@ public class Personal {
     private ArrayList<Horario> turnos;
     private String rut;
 
-    public Personal(String nombre, String rut, Horario horario) {
+    public Personal(String nombre, String rut) {
         this.nombre = nombre;
         this.turnos = new ArrayList<>();
         this.rut = rut;
