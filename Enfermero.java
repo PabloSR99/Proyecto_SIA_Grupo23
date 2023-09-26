@@ -1,38 +1,12 @@
 import java.util.*;
 import java.io.*;
 
-public class Enfermero{
-    private String nombre;
-    private String rut;
-    private ArrayList <Horario> turnos;
+public class Enfermero extends Personal {
+    private ArrayList<Doctor> doctoresAsignados;
 
-    public Enfermero(String nombre, String rut){
-
-        setNombre(nombre);
-        setRut(rut);
-        this.turnos = new ArrayList<>();
-        
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-    
-    public String getRut() {
-        return rut;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public void setRut(String rut) {
-        this.rut = rut;
-    }
-
-    public void setTurno(Horario turno) {
-
-        turnos.add(turno);
+    public Enfermero(String nombre, Horario horario, String rut) {
+        super(nombre, rut, horario);
+        doctoresAsignados = new ArrayList<>();
     }
 
     public ArrayList<Horario> getTurnos() {

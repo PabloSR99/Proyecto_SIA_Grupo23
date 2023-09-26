@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class Ventanas extends JFrame{
 
-    private Control control;
+    private Hospital hospital;
     private JButton bAgregarEnfermero;
     private JButton bEliminarEnfermero;
     private JButton bMostrarEnfermeros;

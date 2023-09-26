@@ -1,17 +1,17 @@
 import java.io.*;
 import java.util.*;
 
-public class Control {
+public class Hospital {
 
     private Map<String, String> mapaEnfermeros;
     private ArrayList <Enfermero> listaEnfermeros;
 
-    public Control() {
+    public Hospital() {
         this.mapaEnfermeros = new HashMap<>();
         this.listaEnfermeros = new ArrayList<>();
     }
 
-    public void datosIni(Control control){
+    public void datosIni(Hospital hospital){
         String path = "enfermeros.csv"; //
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
 
@@ -22,7 +22,7 @@ public class Control {
 
                 String nombre = datos[0].trim();
                 String rut = datos[1].trim();
-                control.agregarEnfermero(nombre, rut);
+                hospital.agregarEnfermero(nombre, rut);
 
 
 
@@ -30,7 +30,7 @@ public class Control {
                     String dia = datos[i].trim();
                     String entrada = datos[i + 1].trim();
                     String salida = datos[i + 2].trim();
-                    control.agregarTurno(rut, dia, entrada, salida);
+                    hospital.agregarTurno(rut, dia, entrada, salida);
 
                 }
 
@@ -47,47 +47,47 @@ public class Control {
         //1° enfermero
         String nombre = "Juan", rut = "12345678-9", dia = "Lunes", entrada = "8:00", salida = "16:00";
 
-        control.agregarEnfermero(nombre, rut);
-        control.agregarTurno(rut, dia, entrada, salida);
+        hospital.agregarEnfermero(nombre, rut);
+        hospital.agregarTurno(rut, dia, entrada, salida);
         dia = "Martes";
-        control.agregarTurno(rut, dia, entrada, salida);
+        hospital.agregarTurno(rut, dia, entrada, salida);
 
         //2° enfermero
         nombre = "Pedro"; rut = "23456789-0"; dia = "Miercoles"; entrada = "7:45"; salida = "15:45";
-        control.agregarEnfermero(nombre, rut);
-        control.agregarTurno(rut, dia, entrada, salida);
+        hospital.agregarEnfermero(nombre, rut);
+        hospital.agregarTurno(rut, dia, entrada, salida);
         entrada = "7:30"; salida = "15:30"; dia = "Jueves";
-        control.agregarTurno(rut, dia, entrada, salida);
+        hospital.agregarTurno(rut, dia, entrada, salida);
         entrada = "6:00"; salida = "9:00"; dia = "Viernes";
-        control.agregarTurno(rut, dia, entrada, salida);
+        hospital.agregarTurno(rut, dia, entrada, salida);
 
         //3° enfermero
         nombre = "Ana"; rut = "34567890-1"; dia = "Jueves";entrada = "8:15";salida = "16:15";
-        control.agregarEnfermero(nombre, rut);
-        control.agregarTurno(rut, dia, entrada, salida);
+        hospital.agregarEnfermero(nombre, rut);
+        hospital.agregarTurno(rut, dia, entrada, salida);
         entrada = "2:30"; salida = "15:30"; dia = "Sabado";
-        control.agregarTurno(rut, dia, entrada, salida);
+        hospital.agregarTurno(rut, dia, entrada, salida);
         entrada = "9:00"; salida = "9:30"; dia = "Domingo";
-        control.agregarTurno(rut, dia, entrada, salida);
+        hospital.agregarTurno(rut, dia, entrada, salida);
 
         //4° enfermero
         nombre = "María";rut = "98765432-1";dia = "Lunes";entrada = "9:30";salida = "17:30";
-        control.agregarEnfermero(nombre, rut);
-        control.agregarTurno(rut, dia, entrada, salida);
+        hospital.agregarEnfermero(nombre, rut);
+        hospital.agregarTurno(rut, dia, entrada, salida);
         entrada = "2:30"; salida = "15:30"; dia = "Martes";
-        control.agregarTurno(rut, dia, entrada, salida);
+        hospital.agregarTurno(rut, dia, entrada, salida);
         entrada = "9:00"; salida = "9:30"; dia = "Miercoles";
-        control.agregarTurno(rut, dia, entrada, salida);
+        hospital.agregarTurno(rut, dia, entrada, salida);
         entrada = "19:00"; salida = "23:30"; dia = "Jueves";
-        control.agregarTurno(rut, dia, entrada, salida);
+        hospital.agregarTurno(rut, dia, entrada, salida);
         entrada = "9:00"; salida = "9:30"; dia = "Viernes";
-        control.agregarTurno(rut, dia, entrada, salida);
+        hospital.agregarTurno(rut, dia, entrada, salida);
         entrada = "1:00"; salida = "20:30"; dia = "Sabado";
-        control.agregarTurno(rut, dia, entrada, salida);
+        hospital.agregarTurno(rut, dia, entrada, salida);
 
          */
     }
-    public void guardarDatos(Control control)throws IOException{
+    public void guardarDatos(Hospital hospital)throws IOException{
 
         String path = "enfermeros.csv";
         FileWriter fichero = new FileWriter(path);

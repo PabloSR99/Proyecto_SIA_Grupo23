@@ -10,11 +10,11 @@ public class Proyecto {
         String ingresado;
 
         Ventanas v;
-        Control control = new Control();
+        Hospital hospital = new Hospital();
         BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
-        control.datosIni(control);
-        v = new Ventanas(control);
-        v.setVisible(true);
+        hospital.datosIni(hospital);
+        //v = new Ventanas(hospital);
+        //v.setVisible(true);
 
         while (opcion != 0){
 
@@ -36,35 +36,35 @@ public class Proyecto {
             switch (opcion) {
                 case 1:
 
-                    control.agregarEnfermero();
+                    hospital.agregarEnfermero();
                     break;
                 case 2:
 
-                    control.eliminarEnfermero();
+                    hospital.eliminarEnfermero();
                     break;
                 case 3:
 
-                    control.mostrarEnfermeros();
+                    hospital.mostrarEnfermeros();
                     break;
                 case 4:
 
-                    control.buscarEnfermero();
+                    hospital.buscarEnfermero();
                     break;  
                 case 5:
 
-                    control.agregarTurno();
+                    hospital.agregarTurno();
                     break;
                 case 6:
 
-                    control.modificarTurno();
+                    hospital.modificarTurno();
                     break;
                 case 7:
 
-                    control.eliminarTurno();
+                    hospital.eliminarTurno();
                     break;
 
                 case 0:
-                    control.guardarDatos(control);
+                    hospital.guardarDatos(hospital);
                     System.out.println("======================================================");
                     System.out.println("Saliendo del programa...");
                     System.out.println("======================================================");
