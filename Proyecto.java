@@ -12,7 +12,8 @@ public class Proyecto {
         Ventanas v;
         Hospital hospital = new Hospital();
         BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
-        hospital.datosIni(hospital);
+        hospital.datosIniEnfermero(hospital);
+        hospital.datosIniDoctor(hospital);
         //v = new Ventanas(hospital);
         //v.setVisible(true);
 
@@ -21,13 +22,17 @@ public class Proyecto {
             System.out.println("======================================================");
             System.out.println("""
                     Ingrese la opcion del menu:
-                    1 -> Agregar enfermero
-                    2 -> Eliminar enfermero
-                    3 -> Mostrar enfermeros y sus turnos
-                    4 -> Buscar enfermero
-                    5 -> Agregar turno de enfermero
-                    6 -> Modificar turno de enfermero
-                    7 -> Eliminar turno de enfermero
+                    1 -> Agregar doctor al sistema
+                    2 -> Eliminar doctor del sistema
+                    3 -> Mostrar doctores y enfermeros
+                    4 -> Asignar enfermero a doctor
+                    5 -> Desasignar enfermero a doctor
+                    6 -> Agregar enfermero al sistema
+                    7 -> Eliminar enfermero del sistema
+                    8 -> Agregar turno a enfermero
+                    9 -> Eliminar turno
+                    10 -> Modificar turno
+                    11 -> Mostrar enfermeros
                     0 -> Salir""");
             System.out.println("======================================================");
             ingresado=lector.readLine();

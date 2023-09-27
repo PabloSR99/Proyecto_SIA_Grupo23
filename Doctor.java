@@ -4,10 +4,8 @@ public class Doctor extends Personal{
 
     private ArrayList<Enfermero> enfermerosAsignados;
     public Doctor(String nombre, String rut){
-
         super(nombre, rut);
         enfermerosAsignados = new ArrayList<>();
-
     }
 
     public void asignarEnfermero(Enfermero enfermero){
@@ -22,21 +20,7 @@ public class Doctor extends Personal{
             }
         }
     }
-    public void mostrarTurnosDoctor(){
 
-        System.out.println("Turnos para " + getNombre());
-        System.out.println("Rut " + getRut());
-        System.out.println("------------------------------------------------------");
-
-        for (int i = 0; i < getTurnos().size(); i++) {
-
-            Horario turno = getTurnos().get(i);
-            System.out.println("Turno " + (i + 1) + ": Día: " + turno.getDia() + ", Entrada: " + turno.getEntrada() + ", Salida: " + turno.getSalida());
-            System.out.println("------------------------------------------------------");
-        }
-        System.out.println();
-
-    }
     public void mostrarEnfermerosDeDoctor(){
         for (int i = 0; i < enfermerosAsignados.size(); i++) {
             System.out.println("Enfermero " + (i + 1) + ": Nombre: " + enfermerosAsignados.get(i).getNombre() + ", Rut: " + enfermerosAsignados.get(i).getRut());

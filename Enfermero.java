@@ -2,15 +2,18 @@ import java.util.*;
 import java.io.*;
 
 public class Enfermero extends Personal {
-    private ArrayList<Doctor> doctoresAsignados;
+    private ArrayList<Horario> turnos;
 
     public Enfermero(String nombre, String rut) {
         super(nombre, rut);
-        doctoresAsignados = new ArrayList<>();
+        this.turnos = new ArrayList<>();
     }
 
-    public ArrayList<Horario> getDoctores() {
-        return getTurnos();
+    public void setTurno(Horario turno) {
+        turnos.add(turno);
+    }
+    public ArrayList<Horario> getTurnos() {
+        return turnos;
     }
 
     public void removeTurno(Horario turno) {
