@@ -43,7 +43,7 @@ public class Ventanas extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    control.agregarEnfermero();
+                    control.agregarEnfermeroAlSistema();
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }

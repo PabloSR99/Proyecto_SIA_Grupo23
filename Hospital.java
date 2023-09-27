@@ -48,15 +48,30 @@ public class Hospital {
 
                     System.out.println("Ingrese el rut del enfermero: ");
                     String rutEnfermero = lector.readLine();
-
                     if(mapaSistema.containsKey(rutEnfermero)){
 
                         for (int j = 0; j < listaEnfermeros.size(); j++) {
 
                             if(listaEnfermeros.get(j).getRut().equals(rutEnfermero)){
 
-                                listaDoctores.get(i).asignarEnfermero(listaEnfermeros.get(j));
-                                break;
+                                System.out.println("ingrese dia");
+                                String dia = lector.readLine();
+                                System.out.println("ingerse hora entrada");
+                                String entrada = lector.readLine();
+                                System.out.println("ingrese hora salida");
+                                String salida = lector.readLine();
+
+                                for(int k=0;k<listaEnfermeros.get(j).getTurnos().size();k++){
+                                    if(listaEnfermeros.get(j).getTurnos().get(k).getDia().equals(dia) && listaEnfermeros.get(j).getTurnos().get(k).getEntrada().equals(entrada) && listaEnfermeros.get(j).getTurnos().get(k).getSalida().equals(salida)){
+                                        for(int h=0;k<listaDoctores.get(i).getTurnos().size();h++){
+                                            if(listaDoctores.get(i).getTurnos().get(h).getDia().equals(dia) && listaDoctores.get(i).getTurnos().get(h).getEntrada().equals(entrada) && listaDoctores.get(i).getTurnos().get(h).getSalida().equals(salida)){
+                                                listaDoctores.get(i).asignarEnfermero(listaEnfermeros.get(j));
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+
                             }
                         }
                     }else{
@@ -312,6 +327,7 @@ public class Hospital {
 
                     Horario auxHorario = new Horario(entrada, salida, dia);
                     listaEnfermeros.get(i).removeTurno(auxHorario);
+
                     break;
                 }
             }
@@ -372,5 +388,5 @@ public class Hospital {
         }
         fichero.close();
     }
-    
 }
+
