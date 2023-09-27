@@ -36,39 +36,42 @@ public class Proyecto {
             switch (opcion) {
                 case 1:
 
-                    hospital.agregarEnfermero();
+                    hospital.agregarEnfermeroAlSistema();
                     break;
                 case 2:
 
-                    hospital.eliminarEnfermero();
+                    hospital.eliminarEnfermeroDelSistema();
                     break;
                 case 3:
 
-                    hospital.mostrarEnfermeros();
+                    hospital.asignarEnfermeroADoctor();
                     break;
                 case 4:
+                    hospital.mostrarEnfermeros();
+                    break;
+                case 5:
 
                     hospital.buscarEnfermero();
                     break;  
-                case 5:
-
-                    hospital.agregarTurno();
-                    break;
                 case 6:
+
+                    hospital.agregarTurnoAEnfermero();
+                    break;
+                case 7:
 
                     hospital.modificarTurno();
                     break;
-                case 7:
+                case 8:
 
                     hospital.eliminarTurno();
                     break;
 
                 case 0:
+
                     hospital.guardarDatos(hospital);
                     System.out.println("======================================================");
                     System.out.println("Saliendo del programa...");
                     System.out.println("======================================================");
-
 
                 default:
                     break;

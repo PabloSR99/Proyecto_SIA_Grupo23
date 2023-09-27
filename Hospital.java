@@ -2,115 +2,80 @@ import java.io.*;
 import java.util.*;
 
 public class Hospital {
-
-    private Map<String, String> mapaEnfermeros;
+    private Map<String, String> mapaSistema;
     private ArrayList <Enfermero> listaEnfermeros;
-
+    private ArrayList <Doctor> listaDoctores;
     public Hospital() {
-        this.mapaEnfermeros = new HashMap<>();
+        this.mapaSistema = new HashMap<>();
         this.listaEnfermeros = new ArrayList<>();
+        this.listaDoctores = new ArrayList<>();
     }
+    public void agregarDoctorAlSistma(String nombre, String rut){
+        Doctor auxDoctor = new Doctor(nombre, rut);
+        mapaSistema.put(rut, rut);
+        listaDoctores.add(auxDoctor);
+    }
+    public void agregarDoctorAlSistma()throws IOException{
 
-    public void datosIni(Hospital hospital){
-        String path = "enfermeros.csv"; //
-        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+        BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Ingrese el rut del doctor: ");
+        String rut = lector.readLine();
+        System.out.println("Ingrese el nombre del doctor: ");
+        String nombre = lector.readLine();
+        String rutDoctor = lector.readLine();
+        Doctor auxDoctor = new Doctor(nombre, rut);
+        mapaSistema.put(rut, rut);
+        listaDoctores.add(auxDoctor);
+    }
+    public void mostrarDoctores(){
+        for (int i = 0; i < listaDoctores.size(); i++) {
+            listaDoctores.get(i).mostrarTurnosDoctor();
+            listaDoctores.get(i).mostrarEnfermerosDeDoctor();
+        }
+    }
+    public void asignarEnfermeroADoctor()throws IOException{
 
-            String linea;
-            while ((linea = br.readLine()) != null) {
+        BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
 
-                String[] datos = linea.split(",");
+        System.out.println("Ingrese el rut del doctor: ");
+        String rutDoctor = lector.readLine();
 
-                String nombre = datos[0].trim();
-                String rut = datos[1].trim();
-                hospital.agregarEnfermero(nombre, rut);
+        if(mapaSistema.containsKey(rutDoctor)){
 
+            for (int i = 0; i < listaDoctores.size(); i++) {
 
+                if(listaDoctores.get(i).getRut().equals(rutDoctor)){
 
-                for (int i = 2; i < datos.length; i += 3) {
-                    String dia = datos[i].trim();
-                    String entrada = datos[i + 1].trim();
-                    String salida = datos[i + 2].trim();
-                    hospital.agregarTurno(rut, dia, entrada, salida);
+                    System.out.println("Ingrese el rut del enfermero: ");
+                    String rutEnfermero = lector.readLine();
 
+                    if(mapaSistema.containsKey(rutEnfermero)){
+
+                        for (int j = 0; j < listaEnfermeros.size(); j++) {
+
+                            if(listaEnfermeros.get(j).getRut().equals(rutEnfermero)){
+
+                                listaDoctores.get(i).asignarEnfermero(listaEnfermeros.get(j));
+                                break;
+                            }
+                        }
+                    }else{
+                        System.out.println("El enfermero no se encuentra en el sistema");
+                    }
+                    break;
                 }
-
-
-
-                System.out.println("-----");
             }
-
-        } catch (IOException e) {
-            e.printStackTrace();
+        }else{
+            System.out.println("El doctor no se encuentra en el sistema");
         }
-
-        /*
-        //1° enfermero
-        String nombre = "Juan", rut = "12345678-9", dia = "Lunes", entrada = "8:00", salida = "16:00";
-
-        hospital.agregarEnfermero(nombre, rut);
-        hospital.agregarTurno(rut, dia, entrada, salida);
-        dia = "Martes";
-        hospital.agregarTurno(rut, dia, entrada, salida);
-
-        //2° enfermero
-        nombre = "Pedro"; rut = "23456789-0"; dia = "Miercoles"; entrada = "7:45"; salida = "15:45";
-        hospital.agregarEnfermero(nombre, rut);
-        hospital.agregarTurno(rut, dia, entrada, salida);
-        entrada = "7:30"; salida = "15:30"; dia = "Jueves";
-        hospital.agregarTurno(rut, dia, entrada, salida);
-        entrada = "6:00"; salida = "9:00"; dia = "Viernes";
-        hospital.agregarTurno(rut, dia, entrada, salida);
-
-        //3° enfermero
-        nombre = "Ana"; rut = "34567890-1"; dia = "Jueves";entrada = "8:15";salida = "16:15";
-        hospital.agregarEnfermero(nombre, rut);
-        hospital.agregarTurno(rut, dia, entrada, salida);
-        entrada = "2:30"; salida = "15:30"; dia = "Sabado";
-        hospital.agregarTurno(rut, dia, entrada, salida);
-        entrada = "9:00"; salida = "9:30"; dia = "Domingo";
-        hospital.agregarTurno(rut, dia, entrada, salida);
-
-        //4° enfermero
-        nombre = "María";rut = "98765432-1";dia = "Lunes";entrada = "9:30";salida = "17:30";
-        hospital.agregarEnfermero(nombre, rut);
-        hospital.agregarTurno(rut, dia, entrada, salida);
-        entrada = "2:30"; salida = "15:30"; dia = "Martes";
-        hospital.agregarTurno(rut, dia, entrada, salida);
-        entrada = "9:00"; salida = "9:30"; dia = "Miercoles";
-        hospital.agregarTurno(rut, dia, entrada, salida);
-        entrada = "19:00"; salida = "23:30"; dia = "Jueves";
-        hospital.agregarTurno(rut, dia, entrada, salida);
-        entrada = "9:00"; salida = "9:30"; dia = "Viernes";
-        hospital.agregarTurno(rut, dia, entrada, salida);
-        entrada = "1:00"; salida = "20:30"; dia = "Sabado";
-        hospital.agregarTurno(rut, dia, entrada, salida);
-
-         */
     }
-    public void guardarDatos(Hospital hospital)throws IOException{
 
-        String path = "enfermeros.csv";
-        FileWriter fichero = new FileWriter(path);
-        PrintWriter pw = new PrintWriter(fichero);
-
-        for (int i = 0; i < listaEnfermeros.size(); i++) {
-
-            pw.print(listaEnfermeros.get(i).getNombre() + "," + listaEnfermeros.get(i).getRut());
-
-            for (int j = 0; j < listaEnfermeros.get(i).getTurnos().size(); j++) {
-
-                pw.print("," + listaEnfermeros.get(i).getTurnos().get(j).getDia() + "," + listaEnfermeros.get(i).getTurnos().get(j).getEntrada() + "," + listaEnfermeros.get(i).getTurnos().get(j).getSalida());
-            }
-            pw.println();
-        }
-        fichero.close();
-    }
-    public void agregarEnfermero(String nombre, String rut){
+    public void agregarEnfermeroAlSistema(String nombre, String rut){
         Enfermero auxEnfermero = new Enfermero(nombre, rut);
-        mapaEnfermeros.put(rut, rut);
+        mapaSistema.put(rut, rut);
         listaEnfermeros.add(auxEnfermero);
     }
-    public void agregarEnfermero()throws IOException{
+    public void agregarEnfermeroAlSistema()throws IOException{
 
         BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
 
@@ -121,25 +86,28 @@ public class Hospital {
         String rut = lector.readLine();
 
         Enfermero auxEnfermero = new Enfermero(nombre, rut);
-        mapaEnfermeros.put(rut, rut);
+        mapaSistema.put(rut, rut);
         listaEnfermeros.add(auxEnfermero);
     }
 
 
-    public void eliminarEnfermero()throws IOException{
+    public void eliminarEnfermeroDelSistema()throws IOException{
 
         BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
 
         System.out.println("Ingrese el rut del enfermero a eliminar ");
         String rut = lector.readLine();
-        if(mapaEnfermeros.containsKey(rut)){
+        if(mapaSistema.containsKey(rut)){
 
             for (int i = 0; i < listaEnfermeros.size(); i++) {
 
                 if(listaEnfermeros.get(i).getRut().equals(rut)){
 
                     listaEnfermeros.remove(i);
-                    mapaEnfermeros.remove(rut);
+                    for(int j=0;j<listaDoctores.size();j++){
+                        listaDoctores.get(j).QuitarEnfermero(listaEnfermeros.get(i));
+                    }
+                    mapaSistema.remove(rut);
                     break;
                 }
             }
@@ -161,7 +129,7 @@ public class Hospital {
          System.out.println("Ingrese el rut del enfermero a buscar ");
          String auxString = lector.readLine();
 
-        if(mapaEnfermeros.containsKey(auxString)){
+        if(mapaSistema.containsKey(auxString)){
 
             for (int i = 0; i < listaEnfermeros.size(); i++) {
 
@@ -178,14 +146,14 @@ public class Hospital {
         }
 
     }
-    public void agregarTurno()throws IOException{
+    public void agregarTurnoAEnfermero()throws IOException{
 
         BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
 
         System.out.println("Ingrese el rut del enfermero: ");
         String rut = lector.readLine();
 
-        if(mapaEnfermeros.containsKey(rut)){
+        if(mapaSistema.containsKey(rut)){
 
             for (int i = 0; i < listaEnfermeros.size(); i++) {
 
@@ -209,9 +177,9 @@ public class Hospital {
             System.out.println("El enfermero no se encuentra en el sistema");
         }
     }
-    public void agregarTurno(String rut, String dia, String entrada, String salida){
+    public void agregarTurnoAEnfermero(String rut, String dia, String entrada, String salida){
 
-        if(mapaEnfermeros.containsKey(rut)){
+        if(mapaSistema.containsKey(rut)){
 
             for (int i = 0; i < listaEnfermeros.size(); i++) {
 
@@ -226,6 +194,54 @@ public class Hospital {
         }
     }
 
+    public void agregarTurnoADoctor()throws IOException{
+
+        BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
+
+        System.out.println("Ingrese el rut del doctor: ");
+        String rut = lector.readLine();
+
+        if(mapaSistema.containsKey(rut)){
+
+            for (int i = 0; i < listaDoctores.size(); i++) {
+
+                if(listaDoctores.get(i).getRut().equals(rut)){
+
+                    System.out.println("Ingrese el dia del turno: ");
+                    String dia = lector.readLine();
+
+                    System.out.println("Ingrese la hora de entrada del turno: ");
+                    String entrada = lector.readLine();
+
+                    System.out.println("Ingrese la hora de salida del turno: ");
+                    String salida = lector.readLine();
+
+                    Horario auxHorario = new Horario(entrada, salida, dia);
+                    listaDoctores.get(i).setTurno(auxHorario);
+                    break;
+                }
+            }
+        }else{
+            System.out.println("El doctor no se encuentra en el sistema");
+        }
+    }
+    public void agregarTurnoADoctor(String rut, String dia, String entrada, String salida){
+
+        if(mapaSistema.containsKey(rut)){
+
+            for (int i = 0; i < listaDoctores.size(); i++) {
+
+                if(listaEnfermeros.get(i).getRut().equals(rut)) {
+
+                    Horario auxHorario = new Horario(entrada, salida, dia);
+                    listaDoctores.get(i).setTurno(auxHorario);
+                }
+            }
+        }else {
+            System.out.println("El doctor no se encuentra en el sistema");
+        }
+    }
+
     public void modificarTurno()throws IOException {
         BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Ingrese el rut del enfermero para modificar: ");
@@ -233,7 +249,7 @@ public class Hospital {
         int pos = 0;
         boolean aux = false;
 
-        if (mapaEnfermeros.containsKey(rut)) {
+        if (mapaSistema.containsKey(rut)) {
             for (int i = 0; i < listaEnfermeros.size(); i++) {
                 if (listaEnfermeros.get(i).getRut().equals(rut)) {
 
@@ -279,7 +295,7 @@ public class Hospital {
         System.out.println("Ingrese el rut del enfermero para eliminar: ");
         String rut = lector.readLine();
 
-        if(mapaEnfermeros.containsKey(rut)){
+        if(mapaSistema.containsKey(rut)){
 
             for (int i = 0; i < listaEnfermeros.size(); i++) {
 
@@ -304,5 +320,57 @@ public class Hospital {
         }
     }
 
+    public void datosIni(Hospital hospital){
+        String path = "enfermeros.csv"; //
+        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+
+            String linea;
+            while ((linea = br.readLine()) != null) {
+
+                String[] datos = linea.split(",");
+
+                String nombre = datos[0].trim();
+                String rut = datos[1].trim();
+                hospital.agregarEnfermeroAlSistema(nombre, rut);
+
+
+
+                for (int i = 2; i < datos.length; i += 3) {
+                    String dia = datos[i].trim();
+                    String entrada = datos[i + 1].trim();
+                    String salida = datos[i + 2].trim();
+                    hospital.agregarTurnoAEnfermero(rut, dia, entrada, salida);
+
+                }
+
+
+
+                System.out.println("-----");
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+    public void guardarDatos(Hospital hospital)throws IOException{
+
+        String path = "enfermeros.csv";
+        FileWriter fichero = new FileWriter(path);
+        PrintWriter pw = new PrintWriter(fichero);
+
+        for (int i = 0; i < listaEnfermeros.size(); i++) {
+
+            pw.print(listaEnfermeros.get(i).getNombre() + "," + listaEnfermeros.get(i).getRut());
+
+            for (int j = 0; j < listaEnfermeros.get(i).getTurnos().size(); j++) {
+
+                pw.print("," + listaEnfermeros.get(i).getTurnos().get(j).getDia() + "," + listaEnfermeros.get(i).getTurnos().get(j).getEntrada() + "," + listaEnfermeros.get(i).getTurnos().get(j).getSalida());
+            }
+            pw.println();
+        }
+        fichero.close();
+    }
     
 }
