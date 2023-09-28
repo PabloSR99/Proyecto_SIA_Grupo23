@@ -3,6 +3,7 @@ import java.util.*;
 
 public class Hospital {
     private Map<String, String> mapaSistema;
+    private Map<String, String> mapaEspecialidades;
     private ArrayList <Enfermero> listaEnfermeros;
     private ArrayList <Doctor> listaDoctores;
     public Hospital() {
@@ -10,10 +11,25 @@ public class Hospital {
         this.listaEnfermeros = new ArrayList<>();
         this.listaDoctores = new ArrayList<>();
     }
-    public void agregarDoctorAlSistema(String nombre, String rut){
-        Doctor auxDoctor = new Doctor(nombre, rut);
-        mapaSistema.put(rut, rut);
-        listaDoctores.add(auxDoctor);
+    public boolean agregarDoctorAlSistema(String nombre, String rut,String especialidad){
+        Doctor auxDoctor = new Doctor(nombre, rut,especialidad);
+        try{
+            if(mapaSistema.containsKey(rut)){
+                throw new PersonalExceptions("El doctor ya se encuentra en el sistema");
+            }else{
+                mapaSistema.put(rut, rut);
+                listaDoctores.add(auxDoctor);
+
+                    if (!mapaEspecialidades.containsKey(especialidad)) {
+                        mapaEspecialidades.put(especialidad, especialidad);
+                    }
+
+            }
+        } catch (PersonalExceptions e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+        return true;
     }
     public void agregarDoctorAlSistema()throws IOException{
 
@@ -41,7 +57,10 @@ public class Hospital {
     }
     public String mostrarDoctoresYEnfermeros(){
         for (int i = 0; i < listaDoctores.size(); i++) {
-            System.out.println("Doctor " + (i + 1) + ": Nombre: " + listaDoctores.get(i).getNombre() + ", Rut: " + listaDoctores.get(i).getRut());
+
+            System.out.println("Doctor " + (i + 1) + ": Nombre: " + listaDoctores.get(i).getNombre());
+            System.out.println("Rut: " + listaDoctores.get(i).getRut());
+            System.out.println("Especialidad: " + listaDoctores.get(i).getEspecialidad());
             listaDoctores.get(i).mostrarEnfermerosDeDoctor();
         }
         return null;
@@ -373,6 +392,12 @@ public class Hospital {
         }
 
     }
+    public void mostrarDoctoresPorEspecialidad()throws IOException{
+        BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
+
+
+
+    }
     public void datosIniEnfermero(Hospital hospital){
         String path = "enfermeros.csv"; //
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
@@ -410,9 +435,10 @@ public class Hospital {
                 String[] datos = linea.split(",");
                 String nombreDoctor = datos[0].trim();
                 String rutDoctor = datos[1].trim();
-                hospital.agregarDoctorAlSistema(nombreDoctor, rutDoctor);
+                String especialidad = datos[2].trim();
+                hospital.agregarDoctorAlSistema(nombreDoctor, rutDoctor,especialidad);
 
-                for (int i = 2; i < datos.length; i += 2) {
+                for (int i = 3; i < datos.length; i += 2) {
                     String nombreEnfermero = datos[i].trim();
                     String rutEnfermero = datos[i + 1].trim();
                     hospital.asignarEnfermeroADoctor(rutDoctor, nombreEnfermero, rutEnfermero);
@@ -433,9 +459,9 @@ public class Hospital {
 
             pw.print(listaEnfermeros.get(i).getNombre() + "," + listaEnfermeros.get(i).getRut());
 
-            for (int j = 0; j < listaEnfermeros.get(i).getTurnos().size(); j++) {
+            for (int j = 0; j < listaEnfermeros.get(i).getSize(); j++) {
 
-                pw.print("," + listaEnfermeros.get(i).getTurnos().get(j).getDia() + "," + listaEnfermeros.get(i).getTurnos().get(j).getEntrada() + "," + listaEnfermeros.get(i).getTurnos().get(j).getSalida());
+                pw.print("," + listaEnfermeros.get(i).getTurno(j).getDia() + "," + listaEnfermeros.get(i).getTurno(j).getEntrada() + "," + listaEnfermeros.get(i).getTurno(j).getSalida());
             }
             pw.println();
         }

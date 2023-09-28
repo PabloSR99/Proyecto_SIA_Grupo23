@@ -12,19 +12,22 @@ public class Enfermero extends Personal {
     public void setTurno(Horario turno) {
         turnos.add(turno);
     }
-    public ArrayList<Horario> getTurnos() {
-        return turnos;
-    }
 
+    public Horario getTurno(int i) {
+        return turnos.get(i);
+    }
+    public int getSize(){
+        return turnos.size();
+    }
     public void removeTurno(Horario turno) {
 
-        for (int i = 0; i < getTurnos().size(); i++) {
+        for (int i = 0; i < turnos.size(); i++) {
 
-            if(getTurnos().get(i).getDia().equals(turno.getDia()) && getTurnos().get(i).getEntrada().equals(turno.getEntrada()) && getTurnos().get(i).getSalida().equals(turno.getSalida())) {
+            if(turnos.get(i).getDia().equals(turno.getDia()) && turnos.get(i).getEntrada().equals(turno.getEntrada()) && turnos.get(i).getSalida().equals(turno.getSalida())) {
                 System.out.println("------------------------------------------------------");
                 System.out.println("Turno " + (i + 1) + ": Día: " + turno.getDia() + ", Entrada: " + turno.getEntrada() + ", Salida: " + turno.getSalida() + " eliminado");
                 System.out.println("------------------------------------------------------");
-                getTurnos().remove(i);
+                turnos.remove(i);
                 break;
             }
         }
@@ -36,9 +39,9 @@ public class Enfermero extends Personal {
         System.out.println("Rut " + getRut());
         System.out.println("------------------------------------------------------");
         
-        for (int i = 0; i < getTurnos().size(); i++) {
+        for (int i = 0; i < turnos.size(); i++) {
 
-            Horario turno = getTurnos().get(i);
+            Horario turno = turnos.get(i);
             System.out.println("Turno " + (i + 1) + ": Día: " + turno.getDia() + ", Entrada: " + turno.getEntrada() + ", Salida: " + turno.getSalida());
             System.out.println("------------------------------------------------------");
         }

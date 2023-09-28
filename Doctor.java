@@ -3,9 +3,18 @@ import java.util.ArrayList;
 public class Doctor extends Personal{
 
     private ArrayList<Enfermero> enfermerosAsignados;
-    public Doctor(String nombre, String rut){
+    private String especialidad;
+
+    public Doctor(String nombre, String rut,String especialidad){
         super(nombre, rut);
+        this.especialidad = especialidad;
         enfermerosAsignados = new ArrayList<>();
+    }
+    public void setEspecialidad(String nombre) {
+        this.especialidad = nombre;
+    }
+    public String getEspecialidad() {
+        return especialidad;
     }
 
     public void asignarEnfermero(Enfermero enfermero){
