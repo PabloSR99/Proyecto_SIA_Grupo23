@@ -130,22 +130,24 @@ public class Ventanas extends JFrame{
     }
     private void cuadroAgregarDoctor() {
 
-            JTextField tfNombre = new JTextField();
-            JTextField tfRut = new JTextField();
-            Object[] message = {
-                    "Nombre:", tfNombre,
-                    "RUT:", tfRut
-            };
+        JTextField tfNombre = new JTextField();
+        JTextField tfRut = new JTextField();
+        JTextField tfEspecialidad = new JTextField();
+        Object[] message = {
+                "Nombre:", tfNombre,
+                "RUT:", tfRut,
+                "Especialidad:", tfEspecialidad,
+        };
 
-            int option = JOptionPane.showConfirmDialog(null, message, "Agregar Doctor", JOptionPane.OK_CANCEL_OPTION);
-            if (option == JOptionPane.OK_OPTION) {
-                try {
-                    hospital.agregarDoctor(tfNombre.getText(), tfRut.getText());
-                    JOptionPane.showMessageDialog(this, "Doctor agregado exitosamente!");
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(this, "Error al agregar doctor: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                }
+        int option = JOptionPane.showConfirmDialog(null, message, "Agregar Doctor", JOptionPane.OK_CANCEL_OPTION);
+        if (option == JOptionPane.OK_OPTION) {
+            try {
+                hospital.agregarDoctorAlSistema(tfNombre.getText(), tfRut.getText(), tfEspecialidad.getText());
+                JOptionPane.showMessageDialog(this, "Doctor agregado exitosamente!");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Error al agregar doctor: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
+        }
     }
     private void cuadroEliminarDoctor(){
 
