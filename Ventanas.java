@@ -1,26 +1,27 @@
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.io.IOException;
 
 public class Ventanas extends JFrame{
 
     private Hospital hospital;
+    private JButton bAgregarDoctor;
+    private JButton bEliminarDoctor;
+    private JButton bMostrarDoctoresEnfermeros;
+    private JButton bAsignarEnfermero;
+    private JButton bDesasignarEnfermero;
     private JButton bAgregarEnfermero;
     private JButton bEliminarEnfermero;
-    private JButton bMostrarEnfermeros;
-    private JButton bBuscarEnfermero;
     private JButton bAgregarTurno;
-    private JButton bModificarTurno;
     private JButton bEliminarTurno;
-    private JButton bImportarDatos;
-    private JButton bGuardarDatos;
+    private JButton bModificarTurno;
+    private JButton bMostrarEnfermeros;
 
-    public Ventanas(Hospital control){
+
+
+    public Ventanas(Hospital hospital){
 
         this.hospital = hospital;
         setTitle("Menú de Enfermeros");
@@ -29,28 +30,135 @@ public class Ventanas extends JFrame{
         setLayout(new GridLayout(9, 1));// 10 opciones, 1 columna
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        bAgregarEnfermero = new JButton("Agregar enfermero");
-        bEliminarEnfermero = new JButton("Eliminar enfermero");
-        bMostrarEnfermeros = new JButton("Mostrar enfermeros");
-        bBuscarEnfermero = new JButton("Buscar enfermero");
-        bAgregarTurno = new JButton("Agregar turno");
-        bModificarTurno = new JButton("Modificar turno");
-        bEliminarTurno = new JButton("Eliminar turno");
-        bImportarDatos = new JButton("Importar datos");
-        bGuardarDatos = new JButton("Guardar datos");
+        inicializarBotones();
 
-        bAgregarEnfermero.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+
+    }
+    private void inicializarBotones(){
+
+        bAgregarDoctor = new JButton("Agregar Doctor");
+        bAgregarDoctor.addActionListener(e -> {
+            cuadroAgregarDoctor();
+        });
+        add(bAgregarDoctor);
+
+        bEliminarDoctor = new JButton("Eliminar Doctor");
+        bEliminarDoctor.addActionListener(e -> {
+            cuadroEliminarDoctor();
+        });
+        add(bEliminarDoctor);
+
+        bMostrarDoctoresEnfermeros = new JButton("Mostrar Doctores y Enfermeros");
+        bMostrarDoctoresEnfermeros.addActionListener(e -> {
+            cuadroMostrarDoctoresEnfermeros();
+        });
+        add(bMostrarDoctoresEnfermeros);
+
+        bAsignarEnfermero = new JButton("Asignar Enfermero a Doctor");
+        bAsignarEnfermero.addActionListener(e -> {
+            hospital.mostrarEnfermeros();
+        });
+        add(bAsignarEnfermero);
+
+        bDesasignarEnfermero = new JButton("Desasignar Enfermero a Doctor");
+        bDesasignarEnfermero.addActionListener(e -> {
+            try {
+                hospital.buscarEnfermero();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
+        add(bDesasignarEnfermero);
+
+        bAgregarEnfermero = new JButton("Agregar Enfermero");
+        bAgregarEnfermero.addActionListener(e -> {
+            try {
+                hospital.agregarEnfermeroAlSistema();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
+        add(bAgregarEnfermero);
+
+        bEliminarEnfermero = new JButton("Eliminar Enfermero");
+        bEliminarEnfermero.addActionListener(e -> {
+            try {
+                hospital.eliminarEnfermeroDelSistema();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
+        add(bEliminarEnfermero);
+
+        bAgregarTurno = new JButton("Agregar Turno");
+        bAgregarTurno.addActionListener(e -> {
+            try {
+                hospital.agregarTurnoAEnfermero();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
+        add(bAgregarTurno);
+
+        bEliminarTurno = new JButton("Eliminar Turno");
+        bEliminarTurno.addActionListener(e -> {
+            try {
+                hospital.eliminarTurno();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
+        add(bEliminarTurno);
+
+        bModificarTurno = new JButton("Modificar Turno");
+        bModificarTurno.addActionListener(e -> {
+            try {
+                hospital.modificarTurno();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
+        add(bModificarTurno);
+
+        bMostrarEnfermeros = new JButton("Mostrar Enfermeros");
+        bMostrarEnfermeros.addActionListener(e -> {
+            hospital.mostrarEnfermeros();
+        });
+        add(bMostrarEnfermeros);
+
+
+    }
+    private void cuadroAgregarDoctor() {
+
+            JTextField tfNombre = new JTextField();
+            JTextField tfRut = new JTextField();
+            Object[] message = {
+                    "Nombre:", tfNombre,
+                    "RUT:", tfRut
+            };
+
+            int option = JOptionPane.showConfirmDialog(null, message, "Agregar Doctor", JOptionPane.OK_CANCEL_OPTION);
+            if (option == JOptionPane.OK_OPTION) {
                 try {
-                    control.agregarEnfermeroAlSistema();
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
+                    hospital.agregarDoctor(tfNombre.getText(), tfRut.getText());
+                    JOptionPane.showMessageDialog(this, "Doctor agregado exitosamente!");
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(this, "Error al agregar doctor: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
+    }
+    private void cuadroEliminarDoctor(){
 
-        });
+    }
+    private void cuadroMostrarDoctoresEnfermeros() {
 
-        add(bAgregarEnfermero);
+        JTextArea textArea = new JTextArea(20, 30);
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        textArea.setEditable(false);
+        textArea.setText(hospital.mostrarDoctoresYEnfermeros());
+        JOptionPane.showMessageDialog(null, scrollPane, "Doctores y Enfermeros", JOptionPane.INFORMATION_MESSAGE);
+
+
+
     }
 }

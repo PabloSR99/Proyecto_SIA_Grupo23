@@ -10,12 +10,12 @@ public class Hospital {
         this.listaEnfermeros = new ArrayList<>();
         this.listaDoctores = new ArrayList<>();
     }
-    public void agregarDoctorAlSistma(String nombre, String rut){
+    public void agregarDoctorAlSistema(String nombre, String rut){
         Doctor auxDoctor = new Doctor(nombre, rut);
         mapaSistema.put(rut, rut);
         listaDoctores.add(auxDoctor);
     }
-    public void agregarDoctorAlSistma()throws IOException{
+    public void agregarDoctorAlSistema()throws IOException{
 
         BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Ingrese el rut del doctor: ");
@@ -26,11 +26,12 @@ public class Hospital {
         mapaSistema.put(rut, rut);
         listaDoctores.add(auxDoctor);
     }
-    public void mostrarDoctoresYEnfermeros(){
+    public String mostrarDoctoresYEnfermeros(){
         for (int i = 0; i < listaDoctores.size(); i++) {
             System.out.println("Doctor " + (i + 1) + ": Nombre: " + listaDoctores.get(i).getNombre() + ", Rut: " + listaDoctores.get(i).getRut());
             listaDoctores.get(i).mostrarEnfermerosDeDoctor();
         }
+        return null;
     }
     public void eliminarDoctor()throws IOException{
         BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
@@ -151,8 +152,6 @@ public class Hospital {
         mapaSistema.put(rut, rut);
         listaEnfermeros.add(auxEnfermero);
     }
-
-
     public void eliminarEnfermeroDelSistema()throws IOException{
 
         BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
@@ -184,7 +183,6 @@ public class Hospital {
             listaEnfermeros.get(i).mostrarTurnos();
         }
     }
-
      public void buscarEnfermero()throws IOException{
 
          BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
@@ -256,10 +254,6 @@ public class Hospital {
             System.out.println("El enfermero no se encuentra en el sistema");
         }
     }
-
-
-
-
     public void modificarTurno()throws IOException {
         BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Ingrese el rut del enfermero para modificar: ");
@@ -305,7 +299,6 @@ public class Hospital {
             }
         }
     }
-
     public void eliminarTurno()throws IOException{
 
         BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
@@ -338,7 +331,6 @@ public class Hospital {
             System.out.println("El enfermero no se encuentra en el sistema");
         }
     }
-
     public void datosIniEnfermero(Hospital hospital){
         String path = "enfermeros.csv"; //
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
@@ -376,7 +368,7 @@ public class Hospital {
                 String[] datos = linea.split(",");
                 String nombreDoctor = datos[0].trim();
                 String rutDoctor = datos[1].trim();
-                hospital.agregarDoctorAlSistma(nombreDoctor, rutDoctor);
+                hospital.agregarDoctorAlSistema(nombreDoctor, rutDoctor);
 
                 for (int i = 2; i < datos.length; i += 2) {
                     String nombreEnfermero = datos[i].trim();
@@ -406,6 +398,9 @@ public class Hospital {
             pw.println();
         }
         fichero.close();
+    }
+    public void agregarDoctor(String text, String text1) {
+
     }
 }
 

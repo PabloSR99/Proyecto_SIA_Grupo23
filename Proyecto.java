@@ -14,9 +14,10 @@ public class Proyecto {
         BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
         hospital.datosIniEnfermero(hospital);
         hospital.datosIniDoctor(hospital);
-        //v = new Ventanas(hospital);
-        //v.setVisible(true);
+        v = new Ventanas(hospital);
+        v.setVisible(true);
 
+        /*
         while (opcion != 0){
 
             System.out.println("======================================================");
@@ -49,27 +50,39 @@ public class Proyecto {
                     break;
                 case 3:
 
-                    hospital.asignarEnfermeroADoctor();
+                    hospital.mostrarDoctoresYEnfermeros();
                     break;
                 case 4:
-                    hospital.mostrarEnfermeros();
+                    hospital.asignarEnfermeroADoctor();
                     break;
                 case 5:
 
-                    hospital.buscarEnfermero();
+                    hospital.desasignarEnfermeroADoctor();
                     break;  
                 case 6:
 
-                    hospital.agregarTurnoAEnfermero();
+                    hospital.agregarEnfermeroAlSistema();
                     break;
                 case 7:
 
-                    hospital.modificarTurno();
+                    hospital.eliminarEnfermeroDelSistema();
                     break;
                 case 8:
 
-                    hospital.eliminarTurno();
+                    hospital.agregarTurnoAEnfermero();
                     break;
+                case 9:
+
+                        hospital.agregarTurnoAEnfermero();
+                        break;
+                case 10:
+
+                        hospital.modificarTurno();
+                        break;
+                case 11:
+
+                        hospital.mostrarEnfermeros();
+                        break;
 
                 case 0:
 
@@ -83,5 +96,7 @@ public class Proyecto {
             }
 
         }
+    */
+
     }
 }
