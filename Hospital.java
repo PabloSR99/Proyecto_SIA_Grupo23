@@ -6,10 +6,12 @@ public class Hospital {
     private Map<String, String> mapaEspecialidades;
     private ArrayList <Enfermero> listaEnfermeros;
     private ArrayList <Doctor> listaDoctores;
+
     public Hospital() {
         this.mapaSistema = new HashMap<>();
         this.listaEnfermeros = new ArrayList<>();
         this.listaDoctores = new ArrayList<>();
+        this.mapaEspecialidades = new HashMap<>();
     }
     public boolean agregarDoctorAlSistema(String nombre, String rut,String especialidad){
         Doctor auxDoctor = new Doctor(nombre, rut,especialidad);
@@ -237,7 +239,7 @@ public class Hospital {
             listaEnfermeros.get(i).mostrarTurnos();
         }
     }
-     public void buscarEnfermero()throws IOException{
+    public void buscarEnfermero()throws IOException{
 
          BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
 

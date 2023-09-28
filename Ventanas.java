@@ -24,15 +24,13 @@ public class Ventanas extends JFrame{
     public Ventanas(Hospital hospital){
 
         this.hospital = hospital;
-        setTitle("Menú de Enfermeros");
+        setTitle("Menú de manejo del Hospital San José");
         setSize(500, 400);
         setLocationRelativeTo(null);
         setLayout(new GridLayout(9, 1));// 10 opciones, 1 columna
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         inicializarBotones();
-
-
     }
     private void inicializarBotones(){
 
@@ -153,14 +151,6 @@ public class Ventanas extends JFrame{
 
     }
     private void cuadroMostrarDoctoresEnfermeros() {
-
-        JTextArea textArea = new JTextArea(20, 30);
-        JScrollPane scrollPane = new JScrollPane(textArea);
-        textArea.setEditable(false);
-        textArea.setText(hospital.mostrarDoctoresYEnfermeros());
-        JOptionPane.showMessageDialog(null, scrollPane, "Doctores y Enfermeros", JOptionPane.INFORMATION_MESSAGE);
-
-
 
     }
 }
