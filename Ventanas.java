@@ -18,6 +18,7 @@ public class Ventanas extends JFrame{
     private JButton bEliminarTurno;
     private JButton bModificarTurno;
     private JButton bMostrarEnfermeros;
+    private JButton BcerrarPrograma;
 
 
 
@@ -105,6 +106,11 @@ public class Ventanas extends JFrame{
         });
         add(bMostrarEnfermeros);
 
+        BcerrarPrograma = new JButton("Cerrar Programa");
+        BcerrarPrograma.addActionListener(e -> {
+            cuadroCerrarPrograma();
+        });
+        add(BcerrarPrograma);
 
     }
     private void cuadroAgregarDoctor() {
@@ -328,8 +334,19 @@ public class Ventanas extends JFrame{
             }
         }
     }
+    public void cuadroCerrarPrograma(){
+        int option = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea cerrar el programa?", "Cerrar Programa", JOptionPane.OK_CANCEL_OPTION);
+        if (option == JOptionPane.OK_OPTION) {
+            try {
+                hospital.guardarDatosEnfermero();
+                hospital.guardarDatosDoctor();
+                System.exit(0);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Error al cerrar programa: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
 
-
+        }
+    }
 
 
 

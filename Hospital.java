@@ -533,7 +533,7 @@ public class Hospital {
             e.printStackTrace();
         }
     }
-    public void guardarDatosEnfermero(Hospital hospital)throws IOException{
+    public void guardarDatosEnfermero()throws IOException{
 
         String path = "enfermeros.csv";
         FileWriter fichero = new FileWriter(path);
@@ -551,7 +551,7 @@ public class Hospital {
         }
         fichero.close();
     }
-    public void guardarDatosDoctor(Hospital hospital)throws IOException{
+    public void guardarDatosDoctor()throws IOException{
 
         String path = "doctores.csv";
         FileWriter fichero = new FileWriter(path);
