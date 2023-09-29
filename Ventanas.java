@@ -54,57 +54,38 @@ public class Ventanas extends JFrame{
 
         bAsignarEnfermero = new JButton("Asignar Enfermero a Doctor");
         bAsignarEnfermero.addActionListener(e -> {
-            hospital.mostrarEnfermeros();
+            asignarEnfermeroAdoctor();
         });
         add(bAsignarEnfermero);
 
         bDesasignarEnfermero = new JButton("Desasignar Enfermero a Doctor");
         bDesasignarEnfermero.addActionListener(e -> {
-            try {
-                hospital.buscarEnfermero();
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
+            desasignarEnfermeroAdoctor();
+
         });
         add(bDesasignarEnfermero);
 
         bAgregarEnfermero = new JButton("Agregar Enfermero");
         bAgregarEnfermero.addActionListener(e -> {
-            try {
-                hospital.agregarEnfermeroAlSistema();
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
+            cuadroAgregarEnfermero();
         });
         add(bAgregarEnfermero);
 
         bEliminarEnfermero = new JButton("Eliminar Enfermero");
         bEliminarEnfermero.addActionListener(e -> {
-            try {
-                hospital.eliminarEnfermeroDelSistema();
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
+            cuadroElimianarEnfermero();
         });
         add(bEliminarEnfermero);
 
         bAgregarTurno = new JButton("Agregar Turno");
         bAgregarTurno.addActionListener(e -> {
-            try {
-                hospital.agregarTurnoAEnfermero();
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
+            cuadroAgregrarTurno();
         });
         add(bAgregarTurno);
 
         bEliminarTurno = new JButton("Eliminar Turno");
         bEliminarTurno.addActionListener(e -> {
-            try {
-                hospital.eliminarTurno();
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
+            cuadroEliminarTurno();
         });
         add(bEliminarTurno);
 
@@ -140,17 +121,219 @@ public class Ventanas extends JFrame{
         int option = JOptionPane.showConfirmDialog(null, message, "Agregar Doctor", JOptionPane.OK_CANCEL_OPTION);
         if (option == JOptionPane.OK_OPTION) {
             try {
-                hospital.agregarDoctorAlSistema(tfNombre.getText(), tfRut.getText(), tfEspecialidad.getText());
-                JOptionPane.showMessageDialog(this, "Doctor agregado exitosamente!");
-            } catch (Exception e) {
+
+                if(hospital.agregarDoctorAlSistema(tfNombre.getText(), tfRut.getText(), tfEspecialidad.getText())){
+                    JOptionPane.showMessageDialog(this, "Doctor agregado exitosamente!");
+                }else{
+                    throw new PersonalExceptions("El doctor ya está en el sistema.");
+                };
+            } catch (PersonalExceptions e) {
                 JOptionPane.showMessageDialog(this, "Error al agregar doctor: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
     private void cuadroEliminarDoctor(){
+        JTextField tfRut = new JTextField();
+        Object[] message = {
+                "RUT:", tfRut,
+        };
+        int option = JOptionPane.showConfirmDialog(null, message, "Eliminar Doctor", JOptionPane.OK_CANCEL_OPTION);
+        if (option == JOptionPane.OK_OPTION) {
+            try {
+                if(hospital.eliminarDoctor(tfRut.getText())){
+                    JOptionPane.showMessageDialog(this, "Doctor eliminado exitosamente!");
+                }
+                else{
+                    throw new PersonalExceptions("El doctor no esta en el sistema.");
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Error al eliminar doctor: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
 
     }
     private void cuadroMostrarDoctoresEnfermeros() {
+        JTextArea textArea = new JTextArea(20, 30);
+        textArea.setEditable(false);
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        textArea.setText(hospital.mostrarDoctoresYEnfermeros());
+        JOptionPane.showMessageDialog(null, scrollPane, "Doctores y Enfermeros", JOptionPane.INFORMATION_MESSAGE);
 
     }
+    private void cuadroAgregarEnfermero() {
+
+        JTextField tfNombre = new JTextField();
+        JTextField tfRut = new JTextField();
+
+        Object[] message = {
+                "Nombre:", tfNombre,
+                "RUT:", tfRut
+
+        };
+
+        int option = JOptionPane.showConfirmDialog(null, message, "Agregar Enfermero", JOptionPane.OK_CANCEL_OPTION);
+        if (option == JOptionPane.OK_OPTION) {
+            try {
+
+                if(hospital.agregarEnfermeroAlSistema(tfNombre.getText(), tfRut.getText())){
+                    JOptionPane.showMessageDialog(this, "Enfermero agregado exitosamente!");
+                }else{
+                    throw new PersonalExceptions("El enfermero ya está en el sistema.");
+                };
+            } catch (PersonalExceptions e) {
+                JOptionPane.showMessageDialog(this, "Error al agregar enfermero: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+    private void cuadroElimianarEnfermero(){
+
+        JTextField tfRut = new JTextField();
+        Object[] message = {
+                "RUT:", tfRut,
+        };
+        int option = JOptionPane.showConfirmDialog(null, message, "Eliminar Enfermero", JOptionPane.OK_CANCEL_OPTION);
+        if (option == JOptionPane.OK_OPTION) {
+            try {
+                if(hospital.eliminarEnfermeroDelSistema(tfRut.getText())){
+                    JOptionPane.showMessageDialog(this, "Enfermero eliminado exitosamente!");
+                }
+                else{
+                    throw new PersonalExceptions("El enfermero no esta en el sistema.");
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Error al eliminar enfermero: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+    }
+
+    public void cuadroAgregrarTurno(){
+        JTextField tfRut = new JTextField();
+        JTextField tfDia = new JTextField();
+        JTextField tfHoraEntrada = new JTextField();
+        JTextField tfHoraSalida = new JTextField();
+        Object[] message = {
+                "RUT:", tfRut,
+                "Dia:", tfDia,
+                "Hora de entrada:", tfHoraEntrada,
+                "Hora de salida:", tfHoraSalida
+        };
+        int option = JOptionPane.showConfirmDialog(null, message, "Agregar Turno", JOptionPane.OK_CANCEL_OPTION);
+        if (option == JOptionPane.OK_OPTION) {
+            try {
+                if(hospital.agregarTurnoAEnfermero(tfRut.getText(), tfDia.getText(), tfHoraEntrada.getText(), tfHoraSalida.getText())){
+                    JOptionPane.showMessageDialog(this, "Turno agregado exitosamente!");
+                }
+                else{
+                    throw new PersonalExceptions("El enfermero no esta en el sistema.");
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Error al agregar turno: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+    }
+
+    public void cuadroEliminarTurno(){
+        JTextField tfRut = new JTextField();
+        JTextField tfDia = new JTextField();
+        JTextField tfHoraEntrada = new JTextField();
+        JTextField tfHoraSalida = new JTextField();
+        Object[] message = {
+                "RUT:", tfRut,
+                "Dia:", tfDia,
+                "Hora de entrada:", tfHoraEntrada,
+                "Hora de salida:", tfHoraSalida
+        };
+        int option = JOptionPane.showConfirmDialog(null, message, "Eliminar Turno", JOptionPane.OK_CANCEL_OPTION);
+        if (option == JOptionPane.OK_OPTION) {
+            try {
+                if(hospital.agregarTurnoAEnfermero(tfRut.getText(), tfDia.getText(), tfHoraEntrada.getText(), tfHoraSalida.getText())){
+                    JOptionPane.showMessageDialog(this, "Turno eliminado exitosamente!");
+                }
+                else{
+                    throw new PersonalExceptions("El enfermero no esta en el sistema.");
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Error al eliminar turno: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+    public void asignarEnfermeroAdoctor(){
+        JTextField tfRutDoctor = new JTextField();
+        JTextField tfRutEnfermero = new JTextField();
+        Object[] message = {
+                "RUT Doctor:", tfRutDoctor,
+                "RUT Enfermero:", tfRutEnfermero,
+        };
+        int option = JOptionPane.showConfirmDialog(null, message, "Asignar Enfermero a Doctor", JOptionPane.OK_CANCEL_OPTION);
+        if (option == JOptionPane.OK_OPTION) {
+            try {
+                if(hospital.asignarEnfermeroADoctor(tfRutDoctor.getText(), tfRutEnfermero.getText())){
+                    JOptionPane.showMessageDialog(this, "Enfermero asignado exitosamente!");
+                }
+                else{
+                    throw new PersonalExceptions("El doctor o enfermero no esta en el sistema.");
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Error al asignar enfermero: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+    }
+    public void desasignarEnfermeroAdoctor(){
+        JTextField tfRutDoctor = new JTextField();
+        JTextField tfRutEnfermero = new JTextField();
+        Object[] message = {
+                "RUT Doctor:", tfRutDoctor,
+                "RUT Enfermero:", tfRutEnfermero,
+        };
+        int option = JOptionPane.showConfirmDialog(null, message, "Desasignar Enfermero a Doctor", JOptionPane.OK_CANCEL_OPTION);
+        if (option == JOptionPane.OK_OPTION) {
+            try {
+                if(hospital.desasignarEnfermeroADoctor(tfRutDoctor.getText(), tfRutEnfermero.getText())){
+                    JOptionPane.showMessageDialog(this, "Enfermero desasignado exitosamente!");
+                }
+                else{
+                    throw new PersonalExceptions("El doctor o enfermero no esta en el sistema.");
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Error al desasignar enfermero: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+    }
+    public void cuadroModificarTurno(){
+        JTextField tfRut = new JTextField();
+        JTextField tfDia = new JTextField();
+        JTextField tfHoraEntrada = new JTextField();
+        JTextField tfHoraSalida = new JTextField();
+        Object[] message = {
+                "RUT:", tfRut,
+                "Dia:", tfDia,
+                "Hora de entrada:", tfHoraEntrada,
+                "Hora de salida:", tfHoraSalida
+        };
+        int option = JOptionPane.showConfirmDialog(null, message, "Modificar Turno", JOptionPane.OK_CANCEL_OPTION);
+        if (option == JOptionPane.OK_OPTION) {
+            try {
+                if(hospital.agregarTurnoAEnfermero(tfRut.getText(), tfDia.getText(), tfHoraEntrada.getText(), tfHoraSalida.getText())){
+                    JOptionPane.showMessageDialog(this, "Turno modificado exitosamente!");
+                }
+                else{
+                    throw new PersonalExceptions("El enfermero no esta en el sistema.");
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Error al modificar turno: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+
+
+
+
+
+
 }
+

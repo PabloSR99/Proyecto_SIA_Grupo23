@@ -173,18 +173,51 @@ public class Hospital {
             System.out.println(e.getMessage());
         }
     }
-    public void agregarEnfermeroAlSistema(String nombre, String rut){
-        Enfermero auxEnfermero = new Enfermero(nombre, rut);
+    public void desasignarEnfermeroADoctor()throws IOException{
+        BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
+
+        System.out.println("Ingrese el rut del doctor: ");
+        String rutDoctor = lector.readLine();
         try{
-            if(mapaSistema.containsKey(rut)){
-                throw new PersonalExceptions("El enfermero ya se encuentra en el sistema");
+            if(mapaSistema.containsKey(rutDoctor)){
+                for (int i = 0; i < listaDoctores.size(); i++) {
+                    if(listaDoctores.get(i).getRut().equals(rutDoctor)){
+                        System.out.println("Ingrese el rut del enfermero: ");
+                        String rutEnfermero = lector.readLine();
+                        if(mapaSistema.containsKey(rutEnfermero)){
+                            for (int j = 0; j < listaEnfermeros.size(); j++) {
+                                if(listaEnfermeros.get(j).getRut().equals(rutEnfermero)){
+                                    listaDoctores.get(i).QuitarEnfermero(listaEnfermeros.get(j));
+                                    break;
+                                }
+                            }
+                        }else{
+                            throw new PersonalExceptions("El enfermero no se encuentra en el sistema");
+                        }
+                    }
+                }
             }else{
-                mapaSistema.put(rut, rut);
-                listaEnfermeros.add(auxEnfermero);
+                throw new PersonalExceptions("El doctor no se encuentra en el sistema");
             }
         } catch (PersonalExceptions e) {
             System.out.println(e.getMessage());
         }
+    }
+    public boolean agregarEnfermeroAlSistema(String nombre, String rut){
+        Enfermero auxEnfermero = new Enfermero(nombre, rut);
+        try{
+            if(mapaSistema.containsKey(rut)){
+                throw new PersonalExceptions("El enfermero ya se encuentra en el sistema");
+
+            }else{
+                mapaSistema.put(rut, rut);
+                listaEnfermeros.add(auxEnfermero);
+                return true;
+            }
+        } catch (PersonalExceptions e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
     }
     public void agregarEnfermeroAlSistema()throws IOException{
 
@@ -291,14 +324,14 @@ public class Hospital {
             System.out.println(e.getMessage());
         }
     }
-    public void agregarTurnoAEnfermero(String rut, String dia, String entrada, String salida){
+    public boolean agregarTurnoAEnfermero(String rut, String dia, String entrada, String salida){
         try{
             if(mapaSistema.containsKey(rut)){
                 for (int i = 0; i < listaEnfermeros.size(); i++) {
                     if(listaEnfermeros.get(i).getRut().equals(rut)){
                         Horario auxHorario = new Horario(entrada, salida, dia);
                         listaEnfermeros.get(i).setTurno(auxHorario);
-                        break;
+                        return true;
                     }
                 }
             }else{
@@ -307,6 +340,7 @@ public class Hospital {
         } catch (PersonalExceptions e) {
             System.out.println(e.getMessage());
         }
+        return false;
     }
     public void modificarTurno()throws IOException {
         BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
@@ -443,7 +477,7 @@ public class Hospital {
                 for (int i = 3; i < datos.length; i += 2) {
                     String nombreEnfermero = datos[i].trim();
                     String rutEnfermero = datos[i + 1].trim();
-                    hospital.asignarEnfermeroADoctor(rutDoctor, nombreEnfermero, rutEnfermero);
+                    hospital.asignarEnfermeroADoctor(rutDoctor, rutEnfermero);
                 }
                 System.out.println("-----");
             }
