@@ -21,9 +21,9 @@ public class Doctor extends Personal{
         enfermerosAsignados.add(enfermero);
     }
 
-    public void QuitarEnfermero(Enfermero enfermero){
+    public void QuitarEnfermero(String rut){
         for(int i=0;i<enfermerosAsignados.size();i++){
-            if(enfermerosAsignados.get(i).getRut().equals(enfermero.getRut())){
+            if(enfermerosAsignados.get(i).getRut().equals(rut)){
                 enfermerosAsignados.remove(i);
                 break;
             }

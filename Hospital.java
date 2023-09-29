@@ -174,7 +174,7 @@ public class Hospital {
                         if(mapaSistema.containsKey(rutEnfermero)){
                             for (int j = 0; j < listaEnfermeros.size(); j++) {
                                 if(listaEnfermeros.get(j).getRut().equals(rutEnfermero)){
-                                    listaDoctores.get(i).QuitarEnfermero(listaEnfermeros.get(j));
+                                    listaDoctores.get(i).QuitarEnfermero(rutEnfermero);
                                     return true;
                                 }
                             }
@@ -205,7 +205,7 @@ public class Hospital {
                         if(mapaSistema.containsKey(rutEnfermero)){
                             for (int j = 0; j < listaEnfermeros.size(); j++) {
                                 if(listaEnfermeros.get(j).getRut().equals(rutEnfermero)){
-                                    listaDoctores.get(i).QuitarEnfermero(listaEnfermeros.get(j));
+                                    listaDoctores.get(i).QuitarEnfermero(rutEnfermero);
                                     break;
                                 }
                             }
@@ -271,7 +271,7 @@ public class Hospital {
                     if(listaEnfermeros.get(i).getRut().equals(rut)){
                         listaEnfermeros.remove(i);
                         for(int j=0;j<listaDoctores.size();j++){
-                            listaDoctores.get(j).QuitarEnfermero(listaEnfermeros.get(i));
+                            listaDoctores.get(j).QuitarEnfermero(rut);
                         }
                         mapaSistema.remove(rut);
                         break;
@@ -286,15 +286,13 @@ public class Hospital {
     }
     public boolean eliminarEnfermeroDelSistema(String rut){
 
-
-        System.out.println("Ingrese el rut del enfermero a eliminar ");
         try{
             if(mapaSistema.containsKey(rut)){
                 for (int i = 0; i < listaEnfermeros.size(); i++) {
                     if(listaEnfermeros.get(i).getRut().equals(rut)){
                         listaEnfermeros.remove(i);
                         for(int j=0;j<listaDoctores.size();j++){
-                            listaDoctores.get(j).QuitarEnfermero(listaEnfermeros.get(i));
+                            listaDoctores.get(j).QuitarEnfermero(rut);
                         }
                         mapaSistema.remove(rut);
                         return true;
@@ -475,6 +473,29 @@ public class Hospital {
             System.out.println(e.getMessage());
         }
 
+    }
+    public int eliminarTurno(String rut , String dia ){
+
+        try{
+            if(mapaSistema.containsKey(rut)){
+                for (int i = 0; i < listaEnfermeros.size(); i++) {
+                    if(listaEnfermeros.get(i).getRut().equals(rut)){
+                        for (int j = 0; j < listaEnfermeros.get(i).getSize(); j++) {
+                            if(listaEnfermeros.get(i).getTurno(j).getDia().equals(dia)){
+                                listaEnfermeros.get(i).removeTurno(listaEnfermeros.get(i).getTurno(j));
+                                return 0;
+                            }
+                        }
+                        return 1;
+                    }
+                }
+            }else{
+                throw new PersonalExceptions("El enfermero no se encuentra en el sistema");
+            }
+        } catch (PersonalExceptions e) {
+            System.out.println(e.getMessage());
+        }
+        return 2;
     }
     public void mostrarDoctoresPorEspecialidad()throws IOException{
         BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));

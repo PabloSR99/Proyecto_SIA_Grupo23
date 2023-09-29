@@ -247,18 +247,20 @@ public class Ventanas extends JFrame{
         JTextField tfHoraSalida = new JTextField();
         Object[] message = {
                 "RUT:", tfRut,
-                "Dia:", tfDia,
-                "Hora de entrada:", tfHoraEntrada,
-                "Hora de salida:", tfHoraSalida
+                "Dia:", tfDia
         };
-        int option = JOptionPane.showConfirmDialog(null, message, "Eliminar Turno", JOptionPane.OK_CANCEL_OPTION);
+        int option = JOptionPane.showConfirmDialog(null, message, "Eliminar Turno de enfermero", JOptionPane.OK_CANCEL_OPTION);
         if (option == JOptionPane.OK_OPTION) {
             try {
-                if(hospital.agregarTurnoAEnfermero(tfRut.getText(), tfDia.getText(), tfHoraEntrada.getText(), tfHoraSalida.getText())){
+                if(hospital.eliminarTurno(tfRut.getText(), tfDia.getText())==0){
                     JOptionPane.showMessageDialog(this, "Turno eliminado exitosamente!");
                 }
                 else{
-                    throw new PersonalExceptions("El enfermero no esta en el sistema.");
+                    if(hospital.eliminarTurno(tfRut.getText(), tfDia.getText())==1) {
+                        throw new HorarioExceptions("El turno no esta en el sistema.");
+                    }else{
+                        throw new PersonalExceptions("El enfermero no esta en el sistema.");
+                    }
                 }
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, "Error al eliminar turno: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);

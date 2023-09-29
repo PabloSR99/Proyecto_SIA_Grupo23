@@ -12,6 +12,19 @@ public class Enfermero extends Personal {
     public void setTurno(Horario turno) {
         turnos.add(turno);
     }
+    public void setTurno( ) throws IOException {
+        BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Ingrese día del turno");
+        String dia = lector.readLine();
+        System.out.println("Ingrese hora de entrada del turno");
+        String entrada = lector.readLine();
+        System.out.println("Ingrese hora de salida del turno");
+        String salida = lector.readLine();
+        Horario turno = new Horario(dia, entrada, salida);
+
+        turnos.add(turno);
+    }
+
 
     public Horario getTurno(int i) {
         return turnos.get(i);
