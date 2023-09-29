@@ -404,7 +404,7 @@ public class Hospital {
 
                         for (int j = 0; j < listaEnfermeros.get(i).getSize(); j++) {
                             if (listaEnfermeros.get(i).getTurno(j).getDia().equals(dia)) {
-                                if (aux == true) {
+                                if (aux) {
 
                                     System.out.println("Hay mas de un turno con ese dia, ingrese la hora de entrada del turno a modificar: ");
                                     String entrada = lector.readLine();
@@ -418,7 +418,7 @@ public class Hospital {
                                 }
                             }
                         }
-                        if (aux == false){
+                        if (!aux){
                             throw new HorarioExceptions("No hay turnos con ese dia");
                         }else{
                             System.out.println("Ingrese el nuevo dia del turno: ");

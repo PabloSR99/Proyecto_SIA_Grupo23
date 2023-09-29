@@ -152,7 +152,7 @@ public class Ventanas extends JFrame{
                 else{
                     throw new PersonalExceptions("El doctor no esta en el sistema.");
                 }
-            } catch (Exception e) {
+            } catch (PersonalExceptions e) {
                 JOptionPane.showMessageDialog(this, "Error al eliminar doctor: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
@@ -206,7 +206,7 @@ public class Ventanas extends JFrame{
                 else{
                     throw new PersonalExceptions("El enfermero no esta en el sistema.");
                 }
-            } catch (Exception e) {
+            } catch (PersonalExceptions e) {
                 JOptionPane.showMessageDialog(this, "Error al eliminar enfermero: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
@@ -262,8 +262,10 @@ public class Ventanas extends JFrame{
                         throw new PersonalExceptions("El enfermero no esta en el sistema.");
                     }
                 }
-            } catch (Exception e) {
+            } catch (HorarioExceptions e) {
                 JOptionPane.showMessageDialog(this, "Error al eliminar turno: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            } catch (PersonalExceptions e1) {
+                JOptionPane.showMessageDialog(this, "Error al eliminar turno: " + e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -283,7 +285,7 @@ public class Ventanas extends JFrame{
                 else{
                     throw new PersonalExceptions("El doctor o enfermero no esta en el sistema.");
                 }
-            } catch (Exception e) {
+            } catch (PersonalExceptions e) {
                 JOptionPane.showMessageDialog(this, "Error al asignar enfermero: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
@@ -305,7 +307,7 @@ public class Ventanas extends JFrame{
                 else{
                     throw new PersonalExceptions("El doctor o enfermero no esta en el sistema.");
                 }
-            } catch (Exception e) {
+            } catch (PersonalExceptions e) {
                 JOptionPane.showMessageDialog(this, "Error al desasignar enfermero: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
@@ -331,7 +333,7 @@ public class Ventanas extends JFrame{
                 else{
                     throw new PersonalExceptions("El enfermero no esta en el sistema.");
                 }
-            } catch (Exception e) {
+            } catch (PersonalExceptions e) {
                 JOptionPane.showMessageDialog(this, "Error al modificar turno: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
