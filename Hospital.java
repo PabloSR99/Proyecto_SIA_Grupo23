@@ -533,7 +533,7 @@ public class Hospital {
             e.printStackTrace();
         }
     }
-    public void guardarDatos(Hospital hospital)throws IOException{
+    public void guardarDatosEnfermero(Hospital hospital)throws IOException{
 
         String path = "enfermeros.csv";
         FileWriter fichero = new FileWriter(path);
@@ -551,6 +551,23 @@ public class Hospital {
         }
         fichero.close();
     }
+    public void guardarDatosDoctor(Hospital hospital)throws IOException{
 
+        String path = "doctores.csv";
+        FileWriter fichero = new FileWriter(path);
+        PrintWriter pw = new PrintWriter(fichero);
+
+        for (int i = 0; i < listaDoctores.size(); i++) {
+
+            pw.print(listaDoctores.get(i).getNombre() + "," + listaDoctores.get(i).getRut() + "," + listaDoctores.get(i).getEspecialidad());
+
+            for (int j = 0; j < listaDoctores.get(i).getSize2(); j++) {
+
+                pw.print("," + listaDoctores.get(i).getEnfermero(j).getNombre() + "," + listaDoctores.get(i).getEnfermero(j).getRut());
+            }
+            pw.println();
+        }
+        fichero.close();
+    }
 }
 

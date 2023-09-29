@@ -37,6 +37,12 @@ public class Doctor extends Personal{
         }
     }
 
+    public Enfermero getEnfermero(int i){
+        return enfermerosAsignados.get(i);
+    }
+    public int getSize2(){
+        return enfermerosAsignados.size();
+    }
 
 
 
