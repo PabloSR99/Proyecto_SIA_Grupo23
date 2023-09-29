@@ -87,7 +87,28 @@ public class Hospital {
             System.out.println(e.getMessage());
         }
     }
-    public void asignarEnfermeroADoctor(String rutDoctor,String nombre,String rutEnfermero){
+
+    public boolean eliminarDoctor(String rutDoctor){
+
+        System.out.println("Ingrese el rut del doctor: ");
+        try{
+            if(mapaSistema.containsKey(rutDoctor)){
+                for (int i = 0; i < listaDoctores.size(); i++) {
+                    if (listaDoctores.get(i).getRut().equals(rutDoctor)) {
+                        listaDoctores.remove(i);
+                        mapaSistema.remove(rutDoctor);
+                        return true;
+                    }
+                }
+            }else{
+                throw new PersonalExceptions("El doctor no se encuentra en el sistema");
+            }
+        } catch (PersonalExceptions e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
+    public boolean asignarEnfermeroADoctor(String rutDoctor,String rutEnfermero){
         try{
             if(mapaSistema.containsKey(rutDoctor)){
                 for (int i = 0; i < listaDoctores.size(); i++) {
@@ -110,6 +131,7 @@ public class Hospital {
         } catch (PersonalExceptions e) {
             System.out.println(e.getMessage());
         }
+        return false;
     }
     public void asignarEnfermeroADoctor()throws IOException{
 
@@ -143,22 +165,17 @@ public class Hospital {
         }
 
     }
-    public void desasignarEnfermeroADoctor()throws IOException{
-        BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
+    public boolean desasignarEnfermeroADoctor(String rutDoctor,String rutEnfermero){
 
-        System.out.println("Ingrese el rut del doctor: ");
-        String rutDoctor = lector.readLine();
         try{
             if(mapaSistema.containsKey(rutDoctor)){
                 for (int i = 0; i < listaDoctores.size(); i++) {
                     if(listaDoctores.get(i).getRut().equals(rutDoctor)){
-                        System.out.println("Ingrese el rut del enfermero: ");
-                        String rutEnfermero = lector.readLine();
                         if(mapaSistema.containsKey(rutEnfermero)){
                             for (int j = 0; j < listaEnfermeros.size(); j++) {
                                 if(listaEnfermeros.get(j).getRut().equals(rutEnfermero)){
                                     listaDoctores.get(i).QuitarEnfermero(listaEnfermeros.get(j));
-                                    break;
+                                    return true;
                                 }
                             }
                         }else{
@@ -172,6 +189,7 @@ public class Hospital {
         } catch (PersonalExceptions e) {
             System.out.println(e.getMessage());
         }
+        return false;
     }
     public void desasignarEnfermeroADoctor()throws IOException{
         BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
@@ -266,6 +284,36 @@ public class Hospital {
             System.out.println(e.getMessage());
         }
     }
+    public boolean eliminarEnfermeroDelSistema(String rut){
+
+
+        System.out.println("Ingrese el rut del enfermero a eliminar ");
+        try{
+            if(mapaSistema.containsKey(rut)){
+                for (int i = 0; i < listaEnfermeros.size(); i++) {
+                    if(listaEnfermeros.get(i).getRut().equals(rut)){
+                        listaEnfermeros.remove(i);
+                        for(int j=0;j<listaDoctores.size();j++){
+                            listaDoctores.get(j).QuitarEnfermero(listaEnfermeros.get(i));
+                        }
+                        mapaSistema.remove(rut);
+                        return true;
+                    }
+                }
+            }else{
+                throw new PersonalExceptions("El enfermero no se encuentra en el sistema");
+            }
+        } catch (PersonalExceptions e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
+
+
+
+
+
+
     public void mostrarEnfermeros(){
         System.out.println("Enfermeros en el sistema");
         for (int i = 0; i < listaEnfermeros.size(); i++) {
