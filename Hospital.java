@@ -66,11 +66,7 @@ public class Hospital {
     // Este método debe mostrar los doctores y enfermeros del sistema.
     public String mostrarDoctoresYEnfermeros(){
         for (int i = 0; i < listaDoctores.size(); i++) {
-
-            System.out.println("Doctor " + (i + 1) + ": Nombre: " + listaDoctores.get(i).getNombre());
-            System.out.println("Rut: " + listaDoctores.get(i).getRut());
-            System.out.println("Especialidad: " + listaDoctores.get(i).getEspecialidad());
-            listaDoctores.get(i).mostrarEnfermerosDeDoctor();
+            listaDoctores.get(i).identificarse();
         }
         return null;
     }
@@ -129,7 +125,7 @@ public class Hospital {
                             for (int j = 0; j < listaEnfermeros.size(); j++) {
                                 if(listaEnfermeros.get(j).getRut().equals(rutEnfermero)){
                                     listaDoctores.get(i).asignarEnfermero(listaEnfermeros.get(j));
-                                    break;
+                                    return true;
                                 }
                             }
                         }else{

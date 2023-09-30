@@ -51,7 +51,7 @@ public class Ventanas extends JFrame{
         });
         add(bEliminarDoctor);
 
-        bMostrarDoctoresEnfermeros = new JButton("Mostrar Doctores y Enfermeros");
+        bMostrarDoctoresEnfermeros = new JButton("Mostrar Doctores");
         bMostrarDoctoresEnfermeros.addActionListener(e -> {
             cuadroMostrarDoctores();
         });
@@ -109,7 +109,7 @@ public class Ventanas extends JFrame{
 
         BmostrarEnfermerosDeDoctor = new JButton("Mostrar Enfermeros de Doctor");
         BmostrarEnfermerosDeDoctor.addActionListener(e -> {
-            cuadroMostrarEnfermeros();
+            cuadroMostrarEnfermerosdeDoctor();
         });
         add(BmostrarEnfermerosDeDoctor);
 
@@ -125,6 +125,59 @@ public class Ventanas extends JFrame{
         });
         add(BcerrarPrograma);
 
+    }
+
+    private void cuadroMostrarEnfermerosdeDoctor(){
+        JTextField tfRut = new JTextField();
+        Object[] message = {
+                "RUT:", tfRut,
+        };
+
+        int option = JOptionPane.showConfirmDialog(null, message, "Indique el rut del doctor.", JOptionPane.OK_CANCEL_OPTION);
+        if (option == JOptionPane.OK_OPTION) {
+            ArrayList <Doctor> doctores = new ArrayList<>();
+            hospital.obtenerDoctores(doctores);
+
+            for (Doctor doctor : doctores) {
+                if(doctor.getRut().equals(tfRut.getText())){
+                    JDialog dialog = new JDialog();
+                    dialog.setTitle("Enfermeros del doctor "+doctor.getNombre());
+                    dialog.setSize(500, 400);
+                    dialog.setLayout(new BorderLayout());
+
+                    ArrayList <Enfermero> enfermeros = new ArrayList<>();
+                    doctor.obtenerEnfermeros(enfermeros);
+
+                    String[] columnNames = {"Nombre", "Rut"};
+                    DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+
+                    for (Enfermero enfermero : enfermeros) {
+                        Object[] rowData = {enfermero.getNombre(), enfermero.getRut()};
+                        model.addRow(rowData);
+                    }
+
+                    JTable table = new JTable(model);
+                    JScrollPane scrollPane = new JScrollPane(table);
+                    table.setFillsViewportHeight(true);
+
+                    JButton btnCerrar = new JButton("Cerrar");
+                    btnCerrar.addActionListener(e -> dialog.dispose());
+
+
+                    JPanel panelBoton = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+
+                    JButton btnMostrarTurnos = new JButton("Mostrar turnos de:");
+                    btnMostrarTurnos.addActionListener(e -> mostrarTurnosDeEnfermero());
+                    panelBoton.add(btnMostrarTurnos);
+                    panelBoton.add(btnCerrar);
+
+                    dialog.add(scrollPane, BorderLayout.CENTER);
+                    dialog.add(panelBoton, BorderLayout.SOUTH);
+
+                    dialog.setVisible(true);
+                }
+            }
+        }
     }
 
     private void cuadroMostrarPorEspecialidad(){
@@ -221,7 +274,7 @@ public class Ventanas extends JFrame{
 
     private void cuadroMostrarDoctores() {
         JDialog dialog = new JDialog();
-        dialog.setTitle("Mostrar Doctores y Enfermeros");
+        dialog.setTitle("Mostrar Doctores");
         dialog.setSize(500, 400);
         dialog.setLayout(new BorderLayout());
 
