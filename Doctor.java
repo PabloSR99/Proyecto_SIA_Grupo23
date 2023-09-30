@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-
+import java.io.*;
 public class Doctor extends Personal{
 
     private ArrayList<Enfermero> enfermerosAsignados;
@@ -10,14 +10,23 @@ public class Doctor extends Personal{
         this.especialidad = especialidad;
         enfermerosAsignados = new ArrayList<>();
     }
-    public void setEspecialidad(String nombre) {
-        this.especialidad = nombre;
+    public void setEspecialidad(String especialidad) {
+        this.especialidad = especialidad;
     }
     public String getEspecialidad() {
         return especialidad;
     }
 
     public void asignarEnfermero(Enfermero enfermero){
+        enfermerosAsignados.add(enfermero);
+    }
+    public void asignarEnfermero()throws IOException {
+        BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Ingrese nombre del enfermero");
+        String nombre = lector.readLine();
+        System.out.println("Ingrese rut del enfermero");
+        String rut = lector.readLine();
+        Enfermero enfermero = new Enfermero(nombre,rut);
         enfermerosAsignados.add(enfermero);
     }
 
