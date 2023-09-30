@@ -20,6 +20,9 @@ public class Doctor extends Personal{
     public void asignarEnfermero(Enfermero enfermero){
         enfermerosAsignados.add(enfermero);
     }
+    public Enfermero getEnfermero(int i){
+        return enfermerosAsignados.get(i);
+    }
     public void asignarEnfermero()throws IOException {
         BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Ingrese nombre del enfermero");
@@ -46,9 +49,7 @@ public class Doctor extends Personal{
         }
     }
 
-    public Enfermero getEnfermero(int i){
-        return enfermerosAsignados.get(i);
-    }
+
     public int getSize2(){
         return enfermerosAsignados.size();
     }

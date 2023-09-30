@@ -2,7 +2,6 @@ import java.io.*;
 
 public class Proyecto {
 
-
     public static void main(String arg[]){
 
         Ventanas v;

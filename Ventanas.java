@@ -31,7 +31,7 @@ public class Ventanas extends JFrame{
         setTitle("Menú de manejo del Hospital San José");
         setSize(500, 400);
         setLocationRelativeTo(null);
-        setLayout(new GridLayout(9, 1));// 10 opciones, 1 columna
+        setLayout(new GridLayout(7, 1));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         inicializarBotones();

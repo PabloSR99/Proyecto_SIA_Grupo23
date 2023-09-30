@@ -342,30 +342,7 @@ public class Hospital {
         }
     }
 
-    // Este método debe buscar un enfermero en el sistema, los parametros los pide por consola.
-    public void buscarEnfermero()throws IOException{
 
-         BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
-
-         System.out.println("Ingrese el rut del enfermero a buscar ");
-         String auxString = lector.readLine();
-         try{
-                 if(mapaSistema.containsKey(auxString)){
-                 for (int i = 0; i < listaEnfermeros.size(); i++) {
-                     if(listaEnfermeros.get(i).getRut().equals(auxString)){
-                         System.out.println("Enfermero: " + listaEnfermeros.get(i).getNombre() + ", Rut: " + listaEnfermeros.get(i).getRut());
-                         listaEnfermeros.get(i).mostrarTurnos();
-                         break;
-                     }
-                 }
-             }else{
-                 throw new PersonalExceptions("El enfermero no se encuentra en el sistema");
-             }
-         } catch (PersonalExceptions e) {
-             System.out.println(e.getMessage());
-         }
-
-    }
 
     // Este método debe buscar un enfermero en el sistema, para esto debe recibir como parámetro el rut del enfermero.
     public Enfermero buscarEnfermero(String rut){
