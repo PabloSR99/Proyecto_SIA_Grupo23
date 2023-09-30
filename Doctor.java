@@ -44,6 +44,17 @@ public class Doctor extends Personal{
         return enfermerosAsignados.size();
     }
 
+    public void obtenerEnfermeros(ArrayList a){
+        for(int i=0;i<enfermerosAsignados.size();i++){
+            a.add(enfermerosAsignados.get(i));
+        }
+    }
 
+    @Override
+    public String identificarse(){
+        return "Nombre: " + getNombre() +
+                "Rut: " + getRut() +
+                "Especializacion: " + getEspecialidad();
+    }
 
 }

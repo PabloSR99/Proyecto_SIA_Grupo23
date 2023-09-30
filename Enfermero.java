@@ -62,7 +62,24 @@ public class Enfermero extends Personal {
 
     }
 
+    public String identificarse() {
+        StringBuilder info = new StringBuilder();
 
-    //PRUEBA 2
-    
+        info.append("Nombre: ").append(getNombre()).append("\n");
+        info.append("Rut: ").append(getRut()).append("\n");
+
+        for (int i = 0; i < turnos.size(); i++) {
+            Horario turno = turnos.get(i);
+            info.append("Turno ").append(i + 1).append(": Día: ").append(turno.getDia()).append(", Entrada: ").append(turno.getEntrada()).append(", Salida: ").append(turno.getSalida()).append("\n");
+        }
+
+        return info.toString();
+    }
+
+    public void obtenerTurnos(ArrayList a){
+        for(int i=0;i<turnos.size();i++){
+            a.add(turnos.get(i));
+        }
+    }
+
 }

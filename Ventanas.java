@@ -1,8 +1,10 @@
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Ventanas extends JFrame{
 
@@ -49,7 +51,7 @@ public class Ventanas extends JFrame{
 
         bMostrarDoctoresEnfermeros = new JButton("Mostrar Doctores y Enfermeros");
         bMostrarDoctoresEnfermeros.addActionListener(e -> {
-            cuadroMostrarDoctoresEnfermeros();
+            cuadroMostrarDoctores();
         });
         add(bMostrarDoctoresEnfermeros);
 
@@ -158,12 +160,38 @@ public class Ventanas extends JFrame{
         }
 
     }
-    private void cuadroMostrarDoctoresEnfermeros() {
-        JTextArea textArea = new JTextArea(20, 30);
-        textArea.setEditable(false);
-        JScrollPane scrollPane = new JScrollPane(textArea);
-        textArea.setText(hospital.mostrarDoctoresYEnfermeros());
-        JOptionPane.showMessageDialog(null, scrollPane, "Doctores y Enfermeros", JOptionPane.INFORMATION_MESSAGE);
+
+    private void cuadroMostrarDoctores() {
+        JDialog dialog = new JDialog();
+        dialog.setTitle("Mostrar Doctores y Enfermeros");
+        dialog.setSize(500, 400);
+        dialog.setLayout(new BorderLayout());
+
+        ArrayList <Doctor> doctores = new ArrayList<>();
+        hospital.obtenerDoctores(doctores);
+
+        String[] columnNames = {"Nombre", "Rut", "Especialidad"};
+        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+
+        for (Doctor doctor : doctores) {
+            Object[] rowData = {doctor.getNombre(), doctor.getRut(), doctor.getEspecialidad()};
+            model.addRow(rowData);
+        }
+
+        JTable table = new JTable(model);
+        JScrollPane scrollPane = new JScrollPane(table);
+        table.setFillsViewportHeight(true);
+
+        JButton btnCerrar = new JButton("Cerrar");
+        btnCerrar.addActionListener(e -> dialog.dispose());
+
+        JPanel panelBoton = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        panelBoton.add(btnCerrar);
+
+        dialog.add(scrollPane, BorderLayout.CENTER);
+        dialog.add(panelBoton, BorderLayout.SOUTH);
+
+        dialog.setVisible(true);
 
     }
     private void cuadroAgregarEnfermero() {
@@ -352,9 +380,92 @@ public class Ventanas extends JFrame{
         }
     }
 
+    private void cuadroMostrarEnfermeros() {
+        JDialog dialog = new JDialog();
+        dialog.setTitle("Todos los enfermeros");
+        dialog.setSize(500, 400);
+        dialog.setLayout(new BorderLayout());
+
+        ArrayList <Enfermero> enfermeros = new ArrayList<>();
+        hospital.obtenerEnfermeros(enfermeros);
+
+        String[] columnNames = {"Nombre", "Rut"};
+        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+
+        for (Enfermero enfermero : enfermeros) {
+            Object[] rowData = {enfermero.getNombre(), enfermero.getRut()};
+            model.addRow(rowData);
+        }
+
+        JTable table = new JTable(model);
+        JScrollPane scrollPane = new JScrollPane(table);
+        table.setFillsViewportHeight(true);
+
+        JButton btnCerrar = new JButton("Cerrar");
+        btnCerrar.addActionListener(e -> dialog.dispose());
 
 
+        JPanel panelBoton = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 
+        JButton btnMostrarTurnos = new JButton("Mostrar turnos de:");
+        btnMostrarTurnos.addActionListener(e -> mostrarTurnosDeEnfermero());
+        panelBoton.add(btnMostrarTurnos);
+        panelBoton.add(btnCerrar);
+
+        dialog.add(scrollPane, BorderLayout.CENTER);
+        dialog.add(panelBoton, BorderLayout.SOUTH);
+
+        dialog.setVisible(true);
+
+    }
+
+    private void mostrarTurnosDeEnfermero() {
+        String rut = JOptionPane.showInputDialog("Ingrese el RUT del enfermero:");
+        JDialog dialog = new JDialog();
+
+        try{
+            if (rut != null && !rut.trim().isEmpty()) {
+                Enfermero enfermero = hospital.buscarEnfermero(rut);
+                if (enfermero != null) {
+                    dialog.setTitle("Turnos del enfermero " + enfermero.getNombre());
+                    dialog.setSize(500, 400);
+                    dialog.setLayout(new BorderLayout());
+                    ArrayList <Horario> turnos = new ArrayList<>();
+                    enfermero.obtenerTurnos(turnos);
+
+                    String[] columnNames = {"Día", "Entrada", "Salida"};
+                    DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+
+                    for (Horario turno : turnos) {
+                        Object[] rowData = {turno.getDia(), turno.getEntrada(), turno.getSalida()};
+                        model.addRow(rowData);
+                    }
+
+                    JTable table = new JTable(model);
+                    JScrollPane scrollPane = new JScrollPane(table);
+                    table.setFillsViewportHeight(true);
+
+                    JButton btnCerrar = new JButton("Cerrar");
+                    btnCerrar.addActionListener(e -> dialog.dispose());
+
+                    JPanel panelBoton = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+                    panelBoton.add(btnCerrar);
+
+                    dialog.add(scrollPane, BorderLayout.CENTER);
+                    dialog.add(panelBoton, BorderLayout.SOUTH);
+
+                    dialog.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se encontró un enfermero con el RUT proporcionado.");
+                }
+            }else{
+                throw new PersonalExceptions("No ha ingresado rut.");
+            }
+        }catch (PersonalExceptions e){
+            JOptionPane.showMessageDialog(this, "Error al mostrar turnos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }
 
 }
 

@@ -7,6 +7,7 @@ public class Hospital {
     private ArrayList <Enfermero> listaEnfermeros;
     private ArrayList <Doctor> listaDoctores;
 
+    // Los comentarios daran detalles de lo que se debe hacer en cada método. El comentario va sobre el método.
     public Hospital() {
         this.mapaSistema = new HashMap<>();
         this.listaEnfermeros = new ArrayList<>();
@@ -33,6 +34,8 @@ public class Hospital {
         }
         return true;
     }
+
+    // Este método debe agregar un doctor al sistema, los parametros los pide por consola.
     public void agregarDoctorAlSistema()throws IOException{
 
         BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
@@ -88,6 +91,7 @@ public class Hospital {
         }
     }
 
+    // Este método debe eliminar un doctor del sistema, para esto debe recibir como parámetro el rut del doctor.
     public boolean eliminarDoctor(String rutDoctor){
 
         System.out.println("Ingrese el rut del doctor: ");
@@ -307,11 +311,7 @@ public class Hospital {
         return false;
     }
 
-
-
-
-
-
+    // Este método debe mostrar los enfermeros del sistema.
     public void mostrarEnfermeros(){
         System.out.println("Enfermeros en el sistema");
         for (int i = 0; i < listaEnfermeros.size(); i++) {
@@ -341,6 +341,26 @@ public class Hospital {
          }
 
     }
+
+    // Este método debe buscar un enfermero en el sistema, para esto debe recibir como parámetro el rut del enfermero.
+    public Enfermero buscarEnfermero(String rut){
+        try{
+            if(mapaSistema.containsKey(rut)){
+                for (int i = 0; i < listaEnfermeros.size(); i++) {
+                    if(listaEnfermeros.get(i).getRut().equals(rut)){
+                        return listaEnfermeros.get(i);
+                    }
+                }
+            }else{
+                throw new PersonalExceptions("El enfermero no se encuentra en el sistema");
+            }
+        } catch (PersonalExceptions e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    // Este método debe agregar un turno a un enfermero, los parametros los pide por consola.
     public void agregarTurnoAEnfermero()throws IOException{
 
         BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
@@ -370,6 +390,8 @@ public class Hospital {
             System.out.println(e.getMessage());
         }
     }
+
+    // Este método debe agregar un turno a un enfermero, para esto debe recibir como parámetros el rut del enfermero, el dia, la hora de entrada y la hora de salida.
     public boolean agregarTurnoAEnfermero(String rut, String dia, String entrada, String salida){
         try{
             if(mapaSistema.containsKey(rut)){
@@ -589,6 +611,47 @@ public class Hospital {
             pw.println();
         }
         fichero.close();
+    }
+
+    // Este método debe generar un reporte de los datos generales del hospital.
+    public void generarReporteDeDatos()throws IOException{
+        String path = "reporte.csv";
+        FileWriter fichero = new FileWriter(path);
+        PrintWriter pw = new PrintWriter(fichero);
+        String titulo = "Doctor,Rut,Especialidad";
+        String titulo2= "Enfermero,Rut,Turno 1,Turno 2,...";
+        pw.println(titulo);
+        for (int i = 0; i < listaDoctores.size(); i++){
+            pw.print(listaDoctores.get(i).getNombre() + "," + listaDoctores.get(i).getRut() + "," + listaDoctores.get(i).getEspecialidad());
+            pw.println();
+        }
+        pw.println(titulo2);
+        for (int i = 0; i < listaEnfermeros.size(); i++) {
+
+            pw.print(listaEnfermeros.get(i).getNombre() + "," + listaEnfermeros.get(i).getRut());
+
+            for (int j = 0; j < listaEnfermeros.get(i).getSize(); j++) {
+
+                pw.print("," + listaEnfermeros.get(i).getTurno(j).getDia() + "," + listaEnfermeros.get(i).getTurno(j).getEntrada() + "," + listaEnfermeros.get(i).getTurno(j).getSalida());
+            }
+            pw.println();
+        }
+        fichero.close();
+
+    }
+
+    // Este método debe agregar los doctores a un ArrayList.
+    public void obtenerDoctores(ArrayList a){
+        for(int i=0;i<listaDoctores.size();i++){
+            a.add(listaDoctores.get(i));
+        }
+    }
+
+    // Este método debe agregar los enfermeros a un ArrayList.
+    public void obtenerEnfermeros(ArrayList a){
+        for(int i=0;i<listaEnfermeros.size();i++){
+            a.add(listaEnfermeros.get(i));
+        }
     }
 }
 
