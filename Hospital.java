@@ -435,6 +435,47 @@ public class Hospital {
         }
         return false;
     }
+
+    // Este método debe modificar un turno de un enfermero, para esto debe recibir como parámetros el rut del enfermero, el dia, la hora de entrada y la hora de salida del turno a modificar, el nuevo dia, la nueva hora de entrada y la nueva hora de salida.
+    public int modificarTurno(String rut ,String diaOriginal,String entradaOriginal,String salidaOriginal,String nuevoDia,String nuevaEntrada,String nuevaSalida){
+        boolean a=false;
+        try {
+            if (mapaSistema.containsKey(rut)) {
+                for (int i = 0; i < listaEnfermeros.size(); i++) {
+                    if (listaEnfermeros.get(i).getRut().equals(rut)) {
+                        a=true;
+                        for (int j = 0; j < listaEnfermeros.get(i).getSize(); j++) {
+                            if (listaEnfermeros.get(i).getTurno(j).getDia().equals(diaOriginal) && listaEnfermeros.get(i).getTurno(j).getEntrada().equals(entradaOriginal) && listaEnfermeros.get(i).getTurno(j).getSalida().equals(salidaOriginal)) {
+
+                                listaEnfermeros.get(i).getTurno(j).setDia(nuevoDia);
+                                listaEnfermeros.get(i).getTurno(j).setEntrada(nuevaEntrada);
+                                listaEnfermeros.get(i).getTurno(j).setSalida(nuevaSalida);
+                                return 0;
+
+                            }
+
+                        }
+
+                        throw new HorarioExceptions("El turno a modificar no existe.");
+
+                    }
+                }
+            } else {
+                throw new PersonalExceptions("El enfermero no se encuentra en el sistema");
+            }
+
+        }catch(PersonalExceptions e){
+            System.out.println(e.getMessage());
+        }
+        catch(HorarioExceptions e1){
+            System.out.println(e1.getMessage());
+        }
+
+        if(a==true)return 2;
+        return  1;
+    }
+
+    // Este método debe modificar un turno de un enfermero, los parametros los pide por consola.
     public void modificarTurno()throws IOException {
         BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Ingrese el rut del enfermero para modificar: ");
@@ -538,6 +579,7 @@ public class Hospital {
                             }
                         }
                         return 1;
+
                     }
                 }
             }else{
@@ -548,12 +590,8 @@ public class Hospital {
         }
         return 2;
     }
-    public void mostrarDoctoresPorEspecialidad()throws IOException{
-        BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
 
-
-
-    }
+    // Este método debe inicializar los datos de los enfermeros al sistema.
     public void datosIniEnfermero(Hospital hospital){
         String path = "enfermeros.csv"; //
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
@@ -645,6 +683,7 @@ public class Hospital {
             }
             pw.println();
         }
+
         fichero.close();
     }
 

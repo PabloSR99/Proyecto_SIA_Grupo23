@@ -21,7 +21,8 @@ public class Ventanas extends JFrame{
     private JButton bModificarTurno;
     private JButton bMostrarEnfermeros;
     private JButton BcerrarPrograma;
-
+    private JButton BmostrarEnfermerosDeDoctor;
+    private JButton BmostrarDoctoresPorEspecialidad;
 
 
     public Ventanas(Hospital hospital){
@@ -55,6 +56,13 @@ public class Ventanas extends JFrame{
             cuadroMostrarDoctores();
         });
         add(bMostrarDoctoresEnfermeros);
+
+        BmostrarDoctoresPorEspecialidad = new JButton("Mostrar doctores por especialidad");
+        BmostrarDoctoresPorEspecialidad.addActionListener(e -> {
+            cuadroMostrarPorEspecialidad();
+        });
+        add(BmostrarDoctoresPorEspecialidad);
+
 
         bAsignarEnfermero = new JButton("Asignar Enfermero a Doctor");
         bAsignarEnfermero.addActionListener(e -> {
@@ -95,17 +103,19 @@ public class Ventanas extends JFrame{
 
         bModificarTurno = new JButton("Modificar Turno");
         bModificarTurno.addActionListener(e -> {
-            try {
-                hospital.modificarTurno();
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
+            cuadroModificarTurno();
         });
         add(bModificarTurno);
 
+        BmostrarEnfermerosDeDoctor = new JButton("Mostrar Enfermeros de Doctor");
+        BmostrarEnfermerosDeDoctor.addActionListener(e -> {
+            cuadroMostrarEnfermeros();
+        });
+        add(BmostrarEnfermerosDeDoctor);
+
         bMostrarEnfermeros = new JButton("Mostrar Enfermeros");
         bMostrarEnfermeros.addActionListener(e -> {
-            hospital.mostrarEnfermeros();
+            cuadroMostrarEnfermeros();
         });
         add(bMostrarEnfermeros);
 
@@ -116,6 +126,52 @@ public class Ventanas extends JFrame{
         add(BcerrarPrograma);
 
     }
+
+    private void cuadroMostrarPorEspecialidad(){
+
+        JTextField tfEspecialidad = new JTextField();
+        Object[] message = {
+                "Especialidad:", tfEspecialidad,
+        };
+
+        int option = JOptionPane.showConfirmDialog(null, message, "Indique la especialidad", JOptionPane.OK_CANCEL_OPTION);
+        if (option == JOptionPane.OK_OPTION) {
+            JDialog dialog = new JDialog();
+            dialog.setTitle("Todos los doctores por "+tfEspecialidad.getText());
+            dialog.setSize(500, 400);
+            dialog.setLayout(new BorderLayout());
+
+            ArrayList <Doctor> doctores = new ArrayList<>();
+            hospital.obtenerDoctores(doctores);
+
+            String[] columnNames = {"Nombre", "Rut", "Especialidad"};
+            DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+
+            for (Doctor doctor : doctores) {
+                if(doctor.getEspecialidad().equals(tfEspecialidad.getText())){
+                    Object[] rowData = {doctor.getNombre(), doctor.getRut(), doctor.getEspecialidad()};
+                    model.addRow(rowData);
+                }
+            }
+
+            JTable table = new JTable(model);
+            JScrollPane scrollPane = new JScrollPane(table);
+            table.setFillsViewportHeight(true);
+
+            JButton btnCerrar = new JButton("Cerrar");
+            btnCerrar.addActionListener(e -> dialog.dispose());
+
+            JPanel panelBoton1 = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+            panelBoton1.add(btnCerrar);
+
+            dialog.add(scrollPane, BorderLayout.CENTER);
+            dialog.add(panelBoton1, BorderLayout.SOUTH);
+
+            dialog.setVisible(true);
+
+        }
+    }
+
     private void cuadroAgregarDoctor() {
 
         JTextField tfNombre = new JTextField();
@@ -353,23 +409,41 @@ public class Ventanas extends JFrame{
         JTextField tfDia = new JTextField();
         JTextField tfHoraEntrada = new JTextField();
         JTextField tfHoraSalida = new JTextField();
+        JTextField tfNuevoDia = new JTextField();
+        JTextField tfNuevaHoraEntrada = new JTextField();
+        JTextField tfNuevaHoraSalida = new JTextField();
         Object[] message = {
                 "RUT:", tfRut,
                 "Dia:", tfDia,
                 "Hora de entrada:", tfHoraEntrada,
                 "Hora de salida:", tfHoraSalida
         };
-        int option = JOptionPane.showConfirmDialog(null, message, "Modificar Turno", JOptionPane.OK_CANCEL_OPTION);
-        if (option == JOptionPane.OK_OPTION) {
+        int option = JOptionPane.showConfirmDialog(null, message, "Turno original", JOptionPane.OK_CANCEL_OPTION);
+
+        Object[] message1 = {
+
+                "Dia:", tfNuevoDia,
+                "Hora de entrada:", tfNuevaHoraEntrada,
+                "Hora de salida:", tfNuevaHoraSalida
+        };
+        int option1 = JOptionPane.showConfirmDialog(null, message1, "Turno nuevo", JOptionPane.OK_CANCEL_OPTION);
+
+        if (option1 == JOptionPane.OK_OPTION) {
             try {
-                if(hospital.agregarTurnoAEnfermero(tfRut.getText(), tfDia.getText(), tfHoraEntrada.getText(), tfHoraSalida.getText())){
+                if(hospital.modificarTurno(tfRut.getText(), tfDia.getText(),tfHoraEntrada.getText(),tfHoraSalida.getText(),tfNuevoDia.getText(),tfNuevaHoraEntrada.getText(),tfNuevaHoraSalida.getText()) == 0){
                     JOptionPane.showMessageDialog(this, "Turno modificado exitosamente!");
                 }
                 else{
-                    throw new PersonalExceptions("El enfermero no esta en el sistema.");
+                    if(hospital.modificarTurno(tfRut.getText(), tfDia.getText(),tfHoraEntrada.getText(),tfHoraSalida.getText(),tfNuevoDia.getText(),tfNuevaHoraEntrada.getText(),tfNuevaHoraSalida.getText()) == 1) {
+                        throw new HorarioExceptions("El turno no esta en el sistema.");
+                    }else{
+                        throw new PersonalExceptions("El enfermero no esta en el sistema.");
+                    }
                 }
-            } catch (PersonalExceptions e) {
-                JOptionPane.showMessageDialog(this, "Error al modificar turno: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            } catch (HorarioExceptions e) {
+                JOptionPane.showMessageDialog(this, "Error al eliminar turno: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            } catch (PersonalExceptions e1) {
+                JOptionPane.showMessageDialog(this, "Error al eliminar turno: " + e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -380,6 +454,7 @@ public class Ventanas extends JFrame{
             try {
                 hospital.guardarDatosEnfermero();
                 hospital.guardarDatosDoctor();
+                hospital.generarReporteDeDatos();
                 System.exit(0);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, "Error al cerrar programa: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
