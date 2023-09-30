@@ -23,4 +23,9 @@ public class Personal {
         return rut;
     }
 
+    public String identificarse(){
+        return "Nombre: " + this.nombre +
+                "Rut: " + this.rut;
+    }
+
 }

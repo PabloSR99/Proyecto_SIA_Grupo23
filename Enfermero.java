@@ -59,7 +59,6 @@ public class Enfermero extends Personal {
             System.out.println("------------------------------------------------------");
         }
         System.out.println();
-
     }
 
     public String identificarse() {

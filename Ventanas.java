@@ -35,6 +35,7 @@ public class Ventanas extends JFrame{
 
         inicializarBotones();
     }
+
     private void inicializarBotones(){
 
         bAgregarDoctor = new JButton("Agregar Doctor");
@@ -108,7 +109,7 @@ public class Ventanas extends JFrame{
         });
         add(bMostrarEnfermeros);
 
-        BcerrarPrograma = new JButton("Cerrar Programa");
+        BcerrarPrograma = new JButton("Guardar datos y salir del programa");
         BcerrarPrograma.addActionListener(e -> {
             cuadroCerrarPrograma();
         });
@@ -140,6 +141,7 @@ public class Ventanas extends JFrame{
             }
         }
     }
+
     private void cuadroEliminarDoctor(){
         JTextField tfRut = new JTextField();
         Object[] message = {
@@ -194,6 +196,7 @@ public class Ventanas extends JFrame{
         dialog.setVisible(true);
 
     }
+
     private void cuadroAgregarEnfermero() {
 
         JTextField tfNombre = new JTextField();
@@ -219,6 +222,7 @@ public class Ventanas extends JFrame{
             }
         }
     }
+
     private void cuadroElimianarEnfermero(){
 
         JTextField tfRut = new JTextField();
@@ -241,7 +245,7 @@ public class Ventanas extends JFrame{
 
     }
 
-    public void cuadroAgregrarTurno(){
+    private void cuadroAgregrarTurno(){
         JTextField tfRut = new JTextField();
         JTextField tfDia = new JTextField();
         JTextField tfHoraEntrada = new JTextField();
@@ -268,7 +272,7 @@ public class Ventanas extends JFrame{
 
     }
 
-    public void cuadroEliminarTurno(){
+    private void cuadroEliminarTurno(){
         JTextField tfRut = new JTextField();
         JTextField tfDia = new JTextField();
         JTextField tfHoraEntrada = new JTextField();
@@ -297,7 +301,8 @@ public class Ventanas extends JFrame{
             }
         }
     }
-    public void asignarEnfermeroAdoctor(){
+
+    private void asignarEnfermeroAdoctor(){
         JTextField tfRutDoctor = new JTextField();
         JTextField tfRutEnfermero = new JTextField();
         Object[] message = {
@@ -319,7 +324,8 @@ public class Ventanas extends JFrame{
         }
 
     }
-    public void desasignarEnfermeroAdoctor(){
+
+    private void desasignarEnfermeroAdoctor(){
         JTextField tfRutDoctor = new JTextField();
         JTextField tfRutEnfermero = new JTextField();
         Object[] message = {
@@ -341,7 +347,8 @@ public class Ventanas extends JFrame{
         }
 
     }
-    public void cuadroModificarTurno(){
+
+    private void cuadroModificarTurno(){
         JTextField tfRut = new JTextField();
         JTextField tfDia = new JTextField();
         JTextField tfHoraEntrada = new JTextField();
@@ -366,7 +373,8 @@ public class Ventanas extends JFrame{
             }
         }
     }
-    public void cuadroCerrarPrograma(){
+
+    private void cuadroCerrarPrograma(){
         int option = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea cerrar el programa?", "Cerrar Programa", JOptionPane.OK_CANCEL_OPTION);
         if (option == JOptionPane.OK_OPTION) {
             try {

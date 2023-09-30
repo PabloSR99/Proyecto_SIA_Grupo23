@@ -14,6 +14,8 @@ public class Hospital {
         this.listaDoctores = new ArrayList<>();
         this.mapaEspecialidades = new HashMap<>();
     }
+
+    // Este método debe agregar un doctor al sistema, para esto debe recibir como parámetros el nombre, rut y especialidad del doctor.
     public boolean agregarDoctorAlSistema(String nombre, String rut,String especialidad){
         Doctor auxDoctor = new Doctor(nombre, rut,especialidad);
         try{
@@ -60,6 +62,8 @@ public class Hospital {
             System.out.println(e.getMessage());
         }
     }
+
+    // Este método debe mostrar los doctores y enfermeros del sistema.
     public String mostrarDoctoresYEnfermeros(){
         for (int i = 0; i < listaDoctores.size(); i++) {
 
@@ -70,6 +74,8 @@ public class Hospital {
         }
         return null;
     }
+
+    // Este método debe eliminar un doctor del sistema, los parametros los pide por consola.
     public void eliminarDoctor()throws IOException{
         BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Ingrese el rut del doctor: ");
@@ -112,6 +118,8 @@ public class Hospital {
         }
         return false;
     }
+
+    // Este método debe asignar un enfermero a un doctor, para esto debe recibir como parámetros el rut del doctor y el rut del enfermero.
     public boolean asignarEnfermeroADoctor(String rutDoctor,String rutEnfermero){
         try{
             if(mapaSistema.containsKey(rutDoctor)){
@@ -137,6 +145,8 @@ public class Hospital {
         }
         return false;
     }
+
+    // Este método debe asignar un enfermero a un doctor, los parametros los pide por consola.
     public void asignarEnfermeroADoctor()throws IOException{
 
         BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
@@ -169,6 +179,8 @@ public class Hospital {
         }
 
     }
+
+    // Este método debe desasignar un enfermero a un doctor, para esto debe recibir como parámetros el rut del doctor y el rut del enfermero.
     public boolean desasignarEnfermeroADoctor(String rutDoctor,String rutEnfermero){
 
         try{
@@ -195,6 +207,8 @@ public class Hospital {
         }
         return false;
     }
+
+    // Este método debe desasignar un enfermero a un doctor, los parametros los pide por consola.
     public void desasignarEnfermeroADoctor()throws IOException{
         BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
 
@@ -225,6 +239,8 @@ public class Hospital {
             System.out.println(e.getMessage());
         }
     }
+
+    // Este método debe agregar enfermeros al sistema, para esto debe recibir como parámetros el nombre y rut del enfermero.
     public boolean agregarEnfermeroAlSistema(String nombre, String rut){
         Enfermero auxEnfermero = new Enfermero(nombre, rut);
         try{
@@ -241,6 +257,8 @@ public class Hospital {
         }
         return false;
     }
+
+    // Este método debe agregar enfermeros al sistema, los parametros los pide por consola.
     public void agregarEnfermeroAlSistema()throws IOException{
 
         BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
@@ -263,7 +281,10 @@ public class Hospital {
             System.out.println(e.getMessage());
         }
     }
+
+    // Este método debe eliminar un enfermero del sistema, los parametros los pide por consola.
     public void eliminarEnfermeroDelSistema()throws IOException{
+
 
         BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
 
@@ -288,6 +309,8 @@ public class Hospital {
             System.out.println(e.getMessage());
         }
     }
+
+    // Este método debe eliminar un enfermero del sistema, para esto debe recibir como parámetro el rut del enfermero.
     public boolean eliminarEnfermeroDelSistema(String rut){
 
         try{
@@ -318,6 +341,8 @@ public class Hospital {
             listaEnfermeros.get(i).mostrarTurnos();
         }
     }
+
+    // Este método debe buscar un enfermero en el sistema, los parametros los pide por consola.
     public void buscarEnfermero()throws IOException{
 
          BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
@@ -466,6 +491,8 @@ public class Hospital {
             System.out.println(e.getMessage());
         }
     }
+
+    // Este método debe eliminar un turno de un enfermero, los parametros los pide por consola.
     public void eliminarTurno()throws IOException{
 
         BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
@@ -496,6 +523,8 @@ public class Hospital {
         }
 
     }
+
+    // Este método debe eliminar un turno de un enfermero, para esto debe recibir como parámetros el rut del enfermero y el dia del turno a eliminar.
     public int eliminarTurno(String rut , String dia ){
 
         try{
@@ -553,6 +582,8 @@ public class Hospital {
         }
 
     }
+
+    // Este método debe inicializar los datos de los doctores al sistema.
     public void datosIniDoctor(Hospital hospital){
         String path2 = "doctores.csv";
         try (BufferedReader br = new BufferedReader(new FileReader(path2))) {
@@ -576,6 +607,8 @@ public class Hospital {
             e.printStackTrace();
         }
     }
+
+    // Este método debe guardar los datos de los enfermeros en un archivo csv.
     public void guardarDatosEnfermero()throws IOException{
 
         String path = "enfermeros.csv";
@@ -594,6 +627,8 @@ public class Hospital {
         }
         fichero.close();
     }
+
+    // Este método debe guardar los datos de los doctores en un archivo csv.
     public void guardarDatosDoctor()throws IOException{
 
         String path = "doctores.csv";
